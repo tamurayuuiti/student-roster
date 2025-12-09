@@ -1,6 +1,6 @@
-# student-roster
+# 学年名簿
 
-簡潔な学校名簿アプリです。Google アカウントでサインインすると Firestore から名簿を読み込み、カード一覧・検索・ソート・クラスジャンプが利用できます。
+Google アカウントでサインインすると Firestore から名簿を読み込み、カード一覧・検索・ソート・クラスジャンプが利用できます。
 
 ## 主なファイル
 - [index.html](index.html) — アプリ本体の HTML（Firebase 設定を内包）
@@ -9,9 +9,9 @@
 - [auth/auth.js](auth/auth.js) — Firebase Authentication（Google）周りの処理
 - [auth/auth.css](auth/auth.css) — 認証 UI のスタイル
 
-## 主要な挙動（参照・簡潔版）
+## 主要な挙動
 
-### 概要（責務別）
+### 概要
 
 - Firestore 初期化／読み込み（データ取得）
   - [`initFirestore`](app.js) — Firebase SDK を動的 import して Firestore インスタンスを返す。
@@ -30,7 +30,7 @@
   - `showSignedInUI` / `showSignedOutUI` — ログイン状態に応じて UI を切り替え。
   - `window.startApp` → [`startOnce`](app.js) — 認証完了後にアプリ初期化を開始。
 
-### 起動フロー（簡潔シーケンス）
+### 起動フロー
 1. `index.html` が読み込まれる。
 2. `auth/auth.js` が Firebase Auth を初期化し、`onAuthStateChanged` で状態監視。
 3. サインイン済みなら `window.startApp()` を実行（または `auth:signedin` イベント発火）。
@@ -38,13 +38,9 @@
 5. Firestore から `roster/current` を取得し、正規化後に初期描画。
 6. 以降、検索・ソート操作はクライアント側で反映。
 
-### 公開 API
+### 公開される主な関数
 - `window.startApp()` — 認証完了時に呼び出される初期化関数。
 - `auth:signedin` — 認証完了を通知するカスタムイベント。
-
-## カスタマイズ
-- Firebase 設定を差し替える場合は [index.html](index.html) の `<script id="firebase-config">` を編集してください。
-- Firestore のコレクションは `roster/current` を想定しています（データ形式は [app.js](app.js) の `fetchProfilesFromFirestore` を参照）。
 
 ## 注意点
 - Tailwind は CDN で読み込んでいます（[index.html](index.html)）。
