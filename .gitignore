@@ -1,0 +1,9 @@
+# 不要な巨大フォルダを無視
+node_modules/
+
+# 自動生成される成果物を無視（必要に応じて）
+dist/output.css
+
+# OS固有のゴミファイル
+.DS_Store
+Thumbs.db
