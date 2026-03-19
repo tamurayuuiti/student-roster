@@ -2,46 +2,64 @@
 
 Google アカウントでサインインすると Firestore から名簿を読み込み、カード一覧・検索・ソート・クラスジャンプが利用できます。
 
-## 主なファイル
-- [index.html](index.html) — アプリ本体の HTML（Firebase 設定を内包）
-- [app.js](app.js) — 名簿取得・レンダリング・UI ロジック
-- [styles.css](styles.css) — アプリ固有のスタイル
-- [auth/auth.js](auth/auth.js) — Firebase Authentication（Google）周りの処理
-- [auth/auth.css](auth/auth.css) — 認証 UI のスタイル
+---
 
-## 主要な挙動
+## ディレクトリ構成
 
-### 概要
+```text
+student-roster/
+├── src/                # 開発用ソース（編集するファイル）
+│   ├── css/
+│   │   ├── auth.css    # 認証UI（Googleログインボタンなど）
+│   │   └── style.css   # 名簿カード・検索UIなど
+│   └── input.css       # Tailwind + 各CSSをまとめるエントリ
+├── docs/               # 公開用（ブラウザが読み込む成果物）
+│   ├── index.html      # アプリ本体
+│   ├── output.css      # ビルドされたCSS（本番用・minify済み）
+│   └── app.js          # 名簿取得・UIロジック
+├── auth/
+│   └── auth.js         # Firebase Authentication処理
+└── package.json        # ビルドスクリプト・依存関係管理
+```
 
-- Firestore 初期化／読み込み（データ取得）
-  - [`initFirestore`](app.js) — Firebase SDK を動的 import して Firestore インスタンスを返す。
-  - [`fetchProfilesFromFirestore`](app.js) — `roster/current` を読み込み、正規化済みプロフィール配列を返す。
+---
 
-- 検索用正規化／入力バッチ（検索 UX）
-  - `normalizeText` — カタカナ→ひらがな、空白除去、小文字化などを行い検索精度を安定化。
-  - `scheduleRender` — 入力イベントを rAF でバッチ化し、リアルタイム性とパフォーマンスを両立。
+## CSS構成（Tailwind v4）
 
-- 絞り込み・ソート・描画（表示ロジック）
-  - [`filterAndSortAndRender`](app.js) — フィルタ→ソート→描画をまとめたメイン処理。
-  - `createCardHTML` / `buildCardsHTML` — 各プロフィールカードの HTML を生成し、`renderCards` で描画。
+本プロジェクトでは Tailwind CSS v4 をビルド方式で使用しています。
 
-- 認証フロー（Google サインイン）
-  - [`readFirebaseConfig`](auth/auth.js) — Firebase 設定タグから初期化情報を取得。
-  - `showSignedInUI` / `showSignedOutUI` — ログイン状態に応じて UI を切り替え。
-  - `window.startApp` → [`startOnce`](app.js) — 認証完了後にアプリ初期化を開始。
+- **`src/input.css`**: Tailwind のベース機能と、`src/css/` 内の各コンポーネント用 CSS を `@import` で統合します。
+- **`docs/output.css`**: ビルドコマンドにより生成される本番用ファイルです。
+- **HTML**: 軽量化された `output.css` のみを読み込み、パフォーマンスを最適化しています。
 
-### 起動フロー
-1. `index.html` が読み込まれる。
-2. `auth/auth.js` が Firebase Auth を初期化し、`onAuthStateChanged` で状態監視。
-3. サインイン済みなら `window.startApp()` を実行（または `auth:signedin` イベント発火）。
-4. `app.js` の `startOnce()` が `loadDataAndInitialize()` を呼び出す。
-5. Firestore から `roster/current` を取得し、正規化後に初期描画。
-6. 以降、検索・ソート操作はクライアント側で反映。
+---
 
-### 公開される主な関数
-- `window.startApp()` — 認証完了時に呼び出される初期化関数。
-- `auth:signedin` — 認証完了を通知するカスタムイベント。
+## 開発手順
+
+### 開発モード（監視）
+ファイルの変更を検知して自動で CSS を再ビルドします。
+```bash
+npm run dev
+```
+
+### 本番ビルド（圧縮）
+本番公開用に CSS を極限まで軽量化（minify）して出力します。
+```bash
+npm run build
+```
+
+---
+
+## 主要な挙動とフロー
+
+1. **起動**: `index.html` 読み込み後、`auth/auth.js` が Firebase の認証状態を監視します。
+2. **認証**: サインイン済みであれば `window.startApp()` を呼び出します。
+3. **データ取得**: `app.js` が Firestore から名簿データを取得します。
+4. **描画**: 取得したデータを元にカード一覧を表示。検索・ソートはクライアント側で高速に処理されます。
+
+---
 
 ## 注意点
-- Tailwind は CDN で読み込んでいます（[index.html](index.html)）。
-- 認証処理は Firebase v9 モジュール（モジュールスクリプト：[auth/auth.js](auth/auth.js)）を使用します。ブラウザのポップアップ許可と Firebase コンソールの許可ドメイン設定を確認してください。
+
+- **CSS修正**: 必ず `src/` 内のファイルを編集してください。`docs/output.css` を直接編集しても、ビルド時に上書きされます。
+- **Firebase**: Firebase コンソールで、GitHub Pages のドメインが「承認済みドメイン」に含まれている必要があります。
