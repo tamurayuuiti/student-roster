@@ -1,0 +1,21 @@
+{
+  "name": "student-roster",
+  "version": "1.0.0",
+  "description": "Google アカウントでサインインすると Firestore から名簿を読み込み、カード一覧・検索・ソート・クラスジャンプが利用できます。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamurayuuiti/student-roster.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tamurayuuiti/student-roster/issues"
+  },
+  "homepage": "https://github.com/tamurayuuiti/student-roster#readme"
+}
