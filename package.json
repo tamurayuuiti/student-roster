@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/tamurayuuiti/student-roster/issues"
   },
-  "homepage": "https://github.com/tamurayuuiti/student-roster#readme"
+  "homepage": "https://github.com/tamurayuuiti/student-roster#readme",
+  "devDependencies": {
+    "tailwindcss": "^4.2.2"
+  }
 }
