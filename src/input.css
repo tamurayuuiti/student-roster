@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* 役割ごとに分けたファイルを読み込む */
+@import "./css/auth.css";
+@import "./css/style.css";
