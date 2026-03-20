@@ -13,12 +13,12 @@ student-roster/
 │   │   ├── auth.css    # 認証UI（Googleログインボタンなど）
 │   │   └── style.css   # 名簿カード・検索UIなど
 │   └── input.css       # Tailwind + 各CSSをまとめるエントリ
-├── docs/               # 公開用（ブラウザが読み込む成果物）
+├── docs/               # 公開用（GitHub Pagesが読み込む成果物）
 │   ├── index.html      # アプリ本体
 │   ├── output.css      # ビルドされたCSS（本番用・minify済み）
-│   └── app.js          # 名簿取得・UIロジック
-├── auth/
-│   └── auth.js         # Firebase Authentication処理
+│   ├── app.js          # 名簿取得・UIロジック
+│   └── auth/           # 認証関連のスクリプト
+│       └── auth.js     # Firebase Authentication処理
 └── package.json        # ビルドスクリプト・依存関係管理
 ```
 
