@@ -1,13 +1,32 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>react-app</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3学年名簿</title>
+
+  <!-- フォント -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Firebase設定（そのまま使う） -->
+  <script id="firebase-config" type="application/json">
+    {
+      "apiKey": "AIzaSyBtJgxwPf8_ocSct_-P66Jki_UCYbnQG6I",
+      "authDomain": "student-roster-8b49a.firebaseapp.com",
+      "projectId": "student-roster-8b49a",
+      "storageBucket": "student-roster-8b49a.appspot.com",
+      "messagingSenderId": "419395010291",
+      "appId": "1:419395010291:web:0aaed2f2983d4eadd3c186",
+      "measurementId": "G-LXWL4LT3MS"
+    }
+  </script>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Reactのマウントポイント -->
+  <div id="root"></div>
+
+  <!-- Reactエントリ -->
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 </html>
