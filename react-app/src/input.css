@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* 自分のカスタムCSS（もしあれば） */
+@import "./css/auth.css";
+@import "./css/style.css";
