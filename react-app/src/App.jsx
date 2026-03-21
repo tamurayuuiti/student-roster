@@ -67,7 +67,6 @@ function initFirebase() {
     firebaseAuth = getAuth(firebaseApp);
     firebaseDb = getFirestore(firebaseApp);
 
-    // ブラウザの言語を優先
     firebaseAuth.useDeviceLanguage?.();
   }
   return { auth: firebaseAuth, db: firebaseDb };
@@ -94,6 +93,18 @@ export default function App() {
   const rafRef = useRef(null);
   const menuRef = useRef(null);
 
+  /* ---------------- HTMLタグのdata属性同期 ---------------- */
+  useEffect(() => {
+    const htmlEl = document.documentElement;
+    if (authLoading) {
+      htmlEl.setAttribute("data-auth", "loading");
+    } else if (user) {
+      htmlEl.setAttribute("data-auth", "signedin");
+    } else {
+      htmlEl.setAttribute("data-auth", "signedout");
+    }
+  }, [authLoading, user]);
+
   /* ---------------- Firebase 認証の監視 ---------------- */
   useEffect(() => {
     try {
@@ -107,7 +118,7 @@ export default function App() {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
         setAuthLoading(false);
-        setAuthError(""); // 状態が変わったらエラークリア
+        setAuthError(""); 
       });
 
       return () => unsubscribe();
@@ -260,116 +271,187 @@ export default function App() {
    * レンダリング
    * ============================================================ */
   if (authLoading) {
-    return <div className="p-8 text-center text-gray-500">読み込み中...</div>;
-  }
-
-  // ---------------- 未ログイン画面 ----------------
-  if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center">
-          <h1 className="text-2xl font-bold mb-2">名簿システム</h1>
-          <p className="text-sm text-gray-600 mb-6">Googleアカウントでサインインしてください。</p>
-          
-          {authError && (
-            <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm text-left">
-              {authError}
-            </div>
-          )}
-
-          <button
-            onClick={handleLogin}
-            disabled={isLoginProcessing}
-            className={`w-full py-2 px-4 rounded text-white font-bold transition ${
-              isLoginProcessing ? "bg-blue-300 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-            }`}
-          >
-            {isLoginProcessing ? "処理中..." : "Googleでログイン"}
-          </button>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="text-gray-500 font-semibold">読み込み中...</div>
       </div>
     );
   }
 
-  // ---------------- ログイン済み画面 (名簿アプリ) ----------------
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* ヘッダー */}
-      <header className="bg-white shadow px-4 py-3 flex justify-between items-center sticky top-0 z-10">
-        <h1 className="text-xl font-bold">名簿システム</h1>
-        
-        <div className="relative" ref={menuRef}>
-          <button
-            onClick={() => setIsMenuOpen((v) => !v)}
-            className="flex items-center gap-2 p-2 rounded hover:bg-gray-100 transition"
-            aria-expanded={isMenuOpen}
-          >
-            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
-              {user.email?.[0]?.toUpperCase() || "U"}
-            </div>
-          </button>
+  // ---------------- 未ログイン画面 (認証ゲート) ----------------
+  if (!user) {
+    return (
+      <section id="auth-gate" aria-live="polite" className="min-h-screen flex items-center justify-center p-4 md:p-8">
+        <div className="auth-card max-w-md w-full">
+          <div className="text-xl font-bold text-slate-900 tracking-tight mb-2 text-center">
+            ログイン
+          </div>
+          <p id="auth-subtitle" className="text-slate-500 text-sm mb-4 text-center">
+            このページを利用するには、Googleアカウントでサインインしてください。
+          </p>
 
-          {isMenuOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg py-2">
-              <div className="px-4 py-2 text-xs text-gray-500 truncate border-b mb-2">
-                {user.email}
-              </div>
+          <div className="flex justify-center">
+            <div id="auth-signedout" style={{ display: "flex", flexDirection: "column", gap: ".6rem", margin: "0.8rem 0 0.8rem" }}>
               <button
-                onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                id="auth-login-popup"
+                className="gsi-material-button"
+                type="button"
+                aria-label="Sign in with Google"
+                style={{ width: "260px" }}
+                onClick={handleLogin}
+                disabled={isLoginProcessing}
               >
-                ログアウト
+                <div className="gsi-material-button-state"></div>
+                <div className="gsi-material-button-content-wrapper">
+                  <div className="gsi-material-button-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" style={{ display: "block" }}>
+                      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+                      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+                      <path fill="none" d="M0 0h48v48H0z" />
+                    </svg>
+                  </div>
+                  <span className="gsi-material-button-contents">
+                    {isLoginProcessing ? "処理中..." : "Sign in with Google"}
+                  </span>
+                  <span className="gsi-material-button-label">Sign in with Google</span>
+                </div>
               </button>
+            </div>
+          </div>
+
+          {authError && (
+            <div id="auth-error" className="text-red-600 text-sm mt-4 text-center font-medium">
+              {authError}
             </div>
           )}
         </div>
+      </section>
+    );
+  }
+
+  // ---------------- ログイン済み画面 (アプリ本体) ----------------
+  return (
+    <div id="app-root">
+      {/* ヘッダー */}
+      <header className="bg-white shadow-md relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <a href="#" className="text-2xl font-bold text-gray-900 tracking-wide">
+              3学年名簿
+            </a>
+
+            <div className="relative" ref={menuRef}>
+              <button
+                id="menu-toggle"
+                className="flex items-center space-x-2 p-1 rounded-full hover:bg-gray-100 transition duration-150"
+                aria-expanded={isMenuOpen}
+                aria-controls="user-menu"
+                type="button"
+                onClick={() => setIsMenuOpen((v) => !v)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </button>
+
+              {isMenuOpen && (
+                <div
+                  id="user-menu"
+                  className="dropdown-menu absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-xl z-30"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="menu-toggle"
+                >
+                  <div className="p-4 border-b border-gray-100">
+                    <p id="user-email" className="text-sm font-semibold text-gray-900 truncate">
+                      {user.email || "メールアドレスなし"}
+                    </p>
+                  </div>
+                  <div className="py-2">
+                    <button
+                      id="auth-chip-logout"
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 font-medium hover:bg-red-50 hover:text-red-700 transition"
+                      type="button"
+                      onClick={handleLogout}
+                    >
+                      ログアウト
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </header>
 
-      {/* メインコンテンツ */}
-      <main className="p-4 space-y-4 max-w-5xl mx-auto">
+      {/* コンテンツ */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
+        
         {authError && (
-          <div className="bg-red-100 text-red-700 p-3 rounded text-sm">
+          <div className="mb-4 bg-red-100 text-red-700 p-3 rounded-lg shadow-sm text-sm font-medium border border-red-200">
             {authError}
           </div>
         )}
 
         {isDataLoading ? (
-          <div className="text-center py-10 text-gray-500">データを取得しています...</div>
+          <div className="text-center py-12 text-gray-500 font-medium">データを取得しています...</div>
         ) : (
           <>
-            {/* 上部操作パネル */}
-            <div className="flex gap-2 flex-wrap bg-white p-4 rounded shadow-sm items-center">
-              <input
-                placeholder="名前・クラス・番号で検索..."
-                className="border p-2 rounded flex-1 min-w-[200px]"
-                onChange={(e) => handleSearch(e.target.value)}
-              />
+            {/* コントロールパネル */}
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 max-w-7xl mx-auto space-y-4 lg:space-y-0 lg:space-x-6 p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+              {/* 検索フィールド */}
+              <div className="w-full lg:w-1/3 relative">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="名前、番号、クラスで検索"
+                  className="w-full p-2 pl-10 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 text-gray-700"
+                  onChange={(e) => handleSearch(e.target.value)}
+                />
+                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
 
-              <select
-                value={sortCriteria}
-                onChange={(e) => setSortCriteria(e.target.value)}
-                className="border p-2 rounded"
-              >
-                <option value="class">クラス順</option>
-                <option value="reading">五十音順</option>
-              </select>
+              {/* ソート */}
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full lg:w-auto justify-end">
+                <div className="flex items-center space-x-3 w-full sm:w-auto">
+                  <label htmlFor="sort-criteria" className="text-sm font-medium text-gray-700 whitespace-nowrap">ソート基準:</label>
+                  <select
+                    id="sort-criteria"
+                    className="flex-grow p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                    value={sortCriteria}
+                    onChange={(e) => setSortCriteria(e.target.value)}
+                  >
+                    <option value="class">クラス（番号順）</option>
+                    <option value="reading">氏名（ふりがな順）</option>
+                  </select>
+                </div>
 
-              <button
-                onClick={() => setIsAscending((v) => !v)}
-                className="border p-2 rounded hover:bg-gray-50"
-              >
-                {isAscending ? "昇順 ▲" : "降順 ▼"}
-              </button>
+                <button
+                  id="sort-direction-toggle"
+                  className="flex items-center justify-center p-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-150 w-full sm:w-auto"
+                  onClick={() => setIsAscending((v) => !v)}
+                >
+                  <svg id="sort-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`mr-2 transform transition duration-300 ${isAscending ? "rotate-0" : "rotate-180"}`}>
+                    <path d="m18 15-6-6-6 6" />
+                  </svg>
+                  <span id="sort-label" className="font-semibold">{isAscending ? "昇順" : "降順"}</span>
+                </button>
+              </div>
             </div>
 
-            {/* ジャンプボタン */}
+            {/* クラスジャンプボタン */}
             {!searchTerm && sortCriteria === "class" && (
-              <div className="flex gap-2 flex-wrap">
+              <div id="jump-button-container" className="mb-6 flex flex-wrap justify-center gap-3 p-4 bg-white rounded-xl shadow-lg border border-gray-100">
                 {classNames.map((c) => (
                   <button
                     key={c}
                     onClick={() => scrollToClass(c)}
-                    className="px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full text-sm hover:bg-blue-100 transition"
+                    className="px-4 py-1.5 bg-indigo-50 text-indigo-700 font-semibold border border-indigo-200 rounded-full text-sm hover:bg-indigo-100 transition shadow-sm"
                   >
                     {c}
                   </button>
@@ -377,13 +459,8 @@ export default function App() {
               </div>
             )}
 
-            {/* 件数 */}
-            <div className="text-sm text-gray-500 text-right">
-              {filteredSorted.length} / {profiles.length} 件表示
-            </div>
-
-            {/* カード一覧 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* カードグリッド */}
+            <section id="card-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {filteredSorted.map((p, i) => {
                 const showAnchor =
                   sortCriteria === "class" &&
@@ -394,11 +471,13 @@ export default function App() {
                   <div
                     key={i}
                     id={showAnchor ? `class-${p.class}` : undefined}
-                    className="p-4 rounded-xl shadow-sm bg-white border border-gray-100 hover:shadow-md transition"
+                    className="p-4 bg-white rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition flex flex-col justify-between"
                   >
-                    <div className="flex justify-between text-gray-500 mb-2 border-b pb-2">
-                      <span className="font-semibold text-blue-600">{p.class}</span>
-                      <span className="text-sm">{String(p.number).padStart(3, "0")}番</span>
+                    <div className="flex justify-between items-center text-gray-500 mb-2 border-b border-gray-100 pb-2">
+                      <span className="font-semibold text-indigo-600">{p.class}</span>
+                      <span className="text-sm font-medium bg-gray-50 px-2 py-0.5 rounded text-gray-600 border border-gray-100">
+                        {String(p.number).padStart(3, "0")}番
+                      </span>
                     </div>
                     <div>
                       <div className="text-xs text-gray-400 mb-1">{p.reading}</div>
@@ -407,13 +486,23 @@ export default function App() {
                   </div>
                 );
               })}
-            </div>
+            </section>
 
+            {/* 該当なし表示 */}
             {filteredSorted.length === 0 && !isDataLoading && (
-              <div className="text-center py-10 text-gray-400">
+              <div className="text-center py-16 text-gray-400">
                 該当する生徒が見つかりません。
               </div>
             )}
+
+            {/* フッター（件数表示） */}
+            <footer className="text-center mt-12 text-gray-400 text-sm pb-8">
+              <p>
+                表示中: <span id="member-count" className="font-semibold">{filteredSorted.length}</span> 名
+                <span className="mx-2">|</span>
+                全件数: <span id="total-count" className="font-semibold">{profiles.length}</span> 名
+              </p>
+            </footer>
           </>
         )}
       </main>
