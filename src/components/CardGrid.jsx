@@ -1,4 +1,5 @@
 import React, { useState, useRef, useMemo } from "react";
+import { normalizeText } from "../utils/normalize";
 
 const CLASS_BASE_COLORS = {
   "1": { base: "#e0e0e0", text: "#111827" },
@@ -12,18 +13,6 @@ const CLASS_BASE_COLORS = {
 };
 
 const collator = new Intl.Collator("ja", { sensitivity: "base", numeric: true });
-const RE_SPACE = /[\s　]+/g;
-const RE_KATAKANA = /[\u30A1-\u30F6]/g;
-
-// App.jsxでも使用するためexport
-export function normalizeText(str) {
-  if (str == null) return "";
-  let result = String(str).replace(RE_SPACE, "");
-  result = result.replace(RE_KATAKANA, (ch) =>
-    String.fromCharCode(ch.charCodeAt(0) - 0x60)
-  );
-  return result.toLowerCase();
-}
 
 function compareByClassThenNumberThenReading(a, b) {
   const ca = Number(String(a.class).replace("組", "")) || 0;

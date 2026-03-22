@@ -14,7 +14,10 @@ import { auth, db, provider } from "./lib/firebase";
 // コンポーネントのインポート
 import Header from "./components/Header";
 import AuthGate, { HOLD_AFTER_LOGIN } from "./components/AuthGate";
-import CardGrid, { normalizeText } from "./components/CardGrid";
+import CardGrid from "./components/CardGrid";
+
+// ユーティリティのインポート
+import { normalizeText } from "./utils/normalize";
 
 export default function App() {
   // --- 認証状態 ---
@@ -58,7 +61,7 @@ export default function App() {
                 class: classStr,
                 name: item.name || "",
                 reading: item.kana || item.reading || "",
-                // CardGridからimportしたnormalizeTextを再利用
+                // utilsからimportしたnormalizeTextを利用
                 normName: normalizeText(item.name || ""),
                 normReading: normalizeText(item.kana || item.reading || ""),
                 normClass: normalizeText(classStr),
