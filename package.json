@@ -1,13 +1,29 @@
 {
   "name": "student-roster",
+  "private": true,
   "version": "1.0.0",
-  "description": "Google アカウントでサインインすると Firestore から名簿を読み込み、カード一覧・検索・ソート・クラスジャンプが利用できます。",
+  "type": "module",
   "scripts": {
-    "dev": "npx tailwindcss -i ./src/input.css -o ./docs/output.css --watch",
-    "build": "npx tailwindcss -i ./src/input.css -o ./docs/output.css --minify"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "firebase": "^12.11.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.2.2",
-    "tailwindcss": "^4.2.2"
+    "@eslint/js": "^9.39.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0",
+    "tailwindcss": "^4.2.2",
+    "vite": "^8.0.1"
   }
 }
