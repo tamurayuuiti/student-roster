@@ -1,10 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite' // これを追加
+import tailwindcss from '@tailwindcss/vite'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(), // これを追加
+    tailwindcss(),
   ],
+  build: {
+    outDir: 'docs',
+    emptyOutDir: true,
+  },
+  base: './',
 })
