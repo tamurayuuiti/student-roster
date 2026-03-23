@@ -41,66 +41,6 @@ body {
 }
 
 /* ============================================================
-   名簿カード（共通デザイン）
-   ============================================================ */
-.name-card {
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
-  transition: transform .2s, box-shadow .2s;
-  scroll-snap-align: start;
-}
-.name-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card-hover);
-}
-
-/* モバイル時の最低高さ */
-@media (max-width: 639px) {
-  .name-card {
-    min-height: 120px;
-  }
-}
-
-/* カード内の文字色 */
-.name-card h2 {
-  color: var(--color-text-main);
-}
-.name-card p {
-  color: var(--color-text-sub);
-}
-
-/* ============================================================
-   クラス別カラー（左ボーダー＋淡背景）
-   ============================================================ */
-.name-card[class*="class-"] {
-  background-clip: padding-box;
-}
-
-.class-1 { background-color: var(--color-class-1-bg); border-left: var(--spacing-v-md) solid var(--color-class-1); }
-.class-2 { background-color: var(--color-class-2-bg); border-left: var(--spacing-v-md) solid var(--color-class-2); }
-.class-3 { background-color: var(--color-class-3-bg); border-left: var(--spacing-v-md) solid var(--color-class-3); }
-.class-4 { background-color: var(--color-class-4-bg); border-left: var(--spacing-v-md) solid var(--color-class-4); }
-.class-5 { background-color: var(--color-class-5-bg); border-left: var(--spacing-v-md) solid var(--color-class-5); }
-.class-6 { background-color: var(--color-class-6-bg); border-left: var(--spacing-v-md) solid var(--color-class-6); }
-.class-7 { background-color: var(--color-class-7-bg); border-left: var(--spacing-v-md) solid var(--color-class-7); }
-.class-8 { background-color: var(--color-class-8-bg); border-left: var(--spacing-v-md) solid var(--color-class-8); }
-
-/* クラスラベル（ピル） */
-.class-label {
-  display: inline-block;
-  padding: var(--spacing-v-xs) var(--spacing-label-x);
-  border-radius: var(--radius-full);
-  background-color: var(--color-white);
-  border: 1px solid var(--color-border-soft);
-  box-shadow: var(--shadow-label);
-  font-size: .72rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--color-text-main);
-}
-
-/* ============================================================
    クラスジャンプボタン
    ============================================================ */
 .jump-btn {
@@ -120,16 +60,6 @@ body {
 .jump-btn:hover {
   transform: translateY(-2px);
   opacity: .95;
-}
-
-/* ============================================================
-   省モーション環境の配慮
-   ============================================================ */
-@media (prefers-reduced-motion: reduce) {
-  .name-card,
-  .jump-btn {
-    transition: none;
-  }
 }
 
 /* ============================================================
@@ -294,6 +224,7 @@ body {
    低モーション環境の配慮
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
+  .jump-btn,
   .auth-card,
   .auth-btn {
     transition: none;
