@@ -1,3 +1,5 @@
+// src/utils/normalize.js
+
 const RE_SPACE = /[\s　]+/g;
 const RE_KATAKANA = /[\u30A1-\u30F6]/g;
 

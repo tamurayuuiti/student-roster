@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+// src/components/Header.jsx
+
+import { useState, useEffect, useRef } from "react";
 
 export default function Header({ user, handleLogout }) {
   const [menuState, setMenuState] = useState("closed"); // 'open', 'closing', 'closed'

@@ -1,5 +1,8 @@
-import React, { useState, useRef, useMemo } from "react";
+// src/components/CardGrid.jsx
+
+import { useState, useRef, useMemo } from "react";
 import { normalizeText } from "../utils/normalize";
+import StudentCard from "./StudentCard";
 
 const CLASS_BASE_COLORS = {
   "1": { base: "#e0e0e0", text: "#111827" },
@@ -180,31 +183,15 @@ export default function CardGrid({ profiles }) {
             }
           }
 
-          const paddedNumber = String(profile.number).padStart(3, "0");
           const classNumber = String(profile.class).replace("組", "");
           const jumpId = isFirstInClass ? `class-start-${classNumber}` : undefined;
 
           return (
-            <div
+            <StudentCard
               key={`${profile.class}-${profile.number}-${index}`}
-              id={jumpId}
-              className={`name-card class-${classNumber} bg-white shadow-md border border-gray-100 rounded-xl p-4 flex flex-col justify-between`}
-            >
-              <div className="flex justify-between items-start mb-2">
-                <span className="class-label text-sm font-bold bg-gray-200 px-2 py-1 rounded">
-                  {profile.class}
-                </span>
-                <span className="text-lg font-mono font-bold text-gray-500">{paddedNumber}</span>
-              </div>
-              <div>
-                <h2 className="text-xl font-extrabold leading-tight">
-                  {profile.name}
-                </h2>
-                <p className="text-sm mt-0.5 italic text-gray-600">
-                  {profile.reading}
-                </p>
-              </div>
-            </div>
+              profile={profile}
+              jumpId={jumpId}
+            />
           );
         })}
       </div>

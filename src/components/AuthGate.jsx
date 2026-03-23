@@ -1,4 +1,4 @@
-import React from "react";
+// src/components/AuthGate.jsx
 
 export const HOLD_AFTER_LOGIN = false;
 const DEFAULT_SUBTITLE = "このページを利用するには、Googleアカウントでサインインしてください。";
