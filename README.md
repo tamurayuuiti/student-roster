@@ -1,6 +1,15 @@
 # 学年名簿
 
-Google アカウントでサインインすると Firestore から名簿を読み込み、カード一覧・検索・ソート・クラスジャンプが利用できます。
+Google アカウントでサインインし、Firestore から名簿を取得して表示する React + Vite アプリです。
+
+---
+
+## 概要
+
+* **フロントエンド**: React + Vite
+* **データ**: Firebase Firestore
+* **認証**: Firebase Authentication（Google）
+* **公開**: GitHub Pages（`docs/` を使用）
 
 ---
 
@@ -8,58 +17,72 @@ Google アカウントでサインインすると Firestore から名簿を読�
 
 ```text
 student-roster/
-├── src/                # 開発用ソース（編集するファイル）
-│   ├── css/
-│   │   ├── auth.css    # 認証UI（Googleログインボタンなど）
-│   │   └── style.css   # 名簿カード・検索UIなど
-│   └── input.css       # Tailwind + 各CSSをまとめるエントリ
-├── docs/               # 公開用（GitHub Pagesが読み込む成果物）
-│   ├── index.html      # アプリ本体
-│   ├── output.css      # ビルドされたCSS（本番用・minify済み）
-│   ├── app.js          # 名簿取得・UIロジック
-│   └── auth/           # 認証関連のスクリプト
-│       └── auth.js     # Firebase Authentication処理
-└── package.json        # ビルドスクリプト・依存関係管理
-```
+├── src/                    # 開発用ソース（編集対象）
+│   ├── main.jsx            # エントリポイント
+│   ├── App.jsx             # アプリ全体の統括・状態管理
+│   ├── components/         # UIコンポーネント
+│   │   ├── AuthGate.jsx    # 認証状態の監視
+│   │   ├── Header.jsx      # ヘッダー（検索・ジャンプ）
+│   │   └── CardGrid.jsx    # 名簿一覧（表示・ソート）
+│   ├── css/                # スタイルシート
+│   │   ├── auth.css        # 認証画面専用スタイル
+│   │   └── style.css       # 名簿カード・共通スタイル
+│   ├── lib/                # 外部サービス設定
+│   │   └── firebase.js     # Firebase 初期化
+│   ├── utils/              # 共通ロジック
+│   │   └── normalize.js    # 文字列正規化処理
+│   └── index.css           # Tailwind エントリ / CSS 統合
+├── docs/                   # ビルド成果物（公開用）
+│   ├── index.html
+│   └── assets/             # ビルド後の JS / CSS
+├── vite.config.js          # Vite 設定（出力先: docs）
+├── package.json            # 依存関係・スクリプト
+└── README.md
+````
 
 ---
 
-## CSS構成（Tailwind v4）
+## 開発
 
-本プロジェクトでは Tailwind CSS v4 をビルド方式で使用しています。
-
-- **`src/input.css`**: Tailwind のベース機能と、`src/css/` 内の各コンポーネント用 CSS を `@import` で統合します。
-- **`docs/output.css`**: ビルドコマンドにより生成される本番用ファイルです。
-- **HTML**: 軽量化された `output.css` のみを読み込み、パフォーマンスを最適化しています。
-
----
-
-## 開発手順
-
-### 開発モード（監視）
-ファイルの変更を検知して自動で CSS を再ビルドします。
 ```bash
+npm install
 npm run dev
 ```
 
-### 本番ビルド（圧縮）
-本番公開用に CSS を極限まで軽量化（minify）して出力します。
+* `src/` を編集
+* ブラウザで動作確認（ホットリロード）
+
+---
+
+## ビルド / 公開
+
 ```bash
 npm run build
 ```
 
----
-
-## 主要な挙動とフロー
-
-1. **起動**: `index.html` 読み込み後、`auth/auth.js` が Firebase の認証状態を監視します。
-2. **認証**: サインイン済みであれば `window.startApp()` を呼び出します。
-3. **データ取得**: `app.js` が Firestore から名簿データを取得します。
-4. **描画**: 取得したデータを元にカード一覧を表示。検索・ソートはクライアント側で高速に処理されます。
+* `docs/` に出力される
+* GitHub Pages で `docs` を指定すればそのまま公開可能
 
 ---
 
-## 注意点
+## 動作フロー
 
-- **CSS修正**: 必ず `src/` 内のファイルを編集してください。`docs/output.css` を直接編集しても、ビルド時に上書きされます。
-- **Firebase**: Firebase コンソールで、GitHub Pages のドメインが「承認済みドメイン」に含まれている必要があります。
+1. 認証状態を監視（AuthGate）
+2. サインイン済みならアプリ開始
+3. Firestore から名簿取得
+4. カードとして描画（検索・ソートはクライアント処理）
+
+---
+
+## Firebase 注意点
+
+* **承認済みドメイン**に公開URLを追加する必要あり
+* `firebase.js` に設定が直接書かれているため、公開リポジトリでの扱いには注意
+* APIキーは公開されても動作上は問題ない設計だが、**アクセス制御はFirestoreルールで厳密に管理する必要がある**
+
+---
+
+## 注意
+
+* `docs/` はビルド成果物なので**直接編集しない**
+* 変更は必ず `src/` 側で行う
