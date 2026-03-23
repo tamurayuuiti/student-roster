@@ -2,18 +2,18 @@
    ベース
    ============================================================ */
 body {
-  font-family: 'Noto Sans JP', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: #fcfcfc;
-  color: #0f172a;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
 }
 
 /* ============================================================
    ヘッダー
    ============================================================ */
 #app-root > header {
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
-  margin: 0 0 1rem;
+  background: var(--color-white);
+  box-shadow: var(--shadow-header);
+  margin: 0 0 var(--spacing-v-xl);
   padding: 0;
 }
 @media (min-width: 768px) {
@@ -44,15 +44,15 @@ body {
    名簿カード（共通デザイン）
    ============================================================ */
 .name-card {
-  background: #ffffff;
-  border-radius: .75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .04);
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
   transition: transform .2s, box-shadow .2s;
   scroll-snap-align: start;
 }
 .name-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -2px rgba(0, 0, 0, .06);
+  box-shadow: var(--shadow-card-hover);
 }
 
 /* モバイル時の最低高さ */
@@ -64,10 +64,10 @@ body {
 
 /* カード内の文字色 */
 .name-card h2 {
-  color: #0f172a;
+  color: var(--color-text-main);
 }
 .name-card p {
-  color: #475569;
+  color: var(--color-text-sub);
 }
 
 /* ============================================================
@@ -77,27 +77,27 @@ body {
   background-clip: padding-box;
 }
 
-.class-1 { background-color: rgba(224,224,224,.06); border-left: .5rem solid #e0e0e0; }
-.class-2 { background-color: rgba(34,34,34,.06);   border-left: .5rem solid #222222; }
-.class-3 { background-color: rgba(229,57,53,.06);  border-left: .5rem solid #e53935; }
-.class-4 { background-color: rgba(33,150,243,.06); border-left: .5rem solid #2196f3; }
-.class-5 { background-color: rgba(251,192,45,.06); border-left: .5rem solid #fbc02d; }
-.class-6 { background-color: rgba(67,160,71,.06);  border-left: .5rem solid #43a047; }
-.class-7 { background-color: rgba(255,152,0,.06);  border-left: .5rem solid #ff9800; }
-.class-8 { background-color: rgba(240,98,146,.06); border-left: .5rem solid #f06292; }
+.class-1 { background-color: var(--color-class-1-bg); border-left: var(--spacing-v-md) solid var(--color-class-1); }
+.class-2 { background-color: var(--color-class-2-bg); border-left: var(--spacing-v-md) solid var(--color-class-2); }
+.class-3 { background-color: var(--color-class-3-bg); border-left: var(--spacing-v-md) solid var(--color-class-3); }
+.class-4 { background-color: var(--color-class-4-bg); border-left: var(--spacing-v-md) solid var(--color-class-4); }
+.class-5 { background-color: var(--color-class-5-bg); border-left: var(--spacing-v-md) solid var(--color-class-5); }
+.class-6 { background-color: var(--color-class-6-bg); border-left: var(--spacing-v-md) solid var(--color-class-6); }
+.class-7 { background-color: var(--color-class-7-bg); border-left: var(--spacing-v-md) solid var(--color-class-7); }
+.class-8 { background-color: var(--color-class-8-bg); border-left: var(--spacing-v-md) solid var(--color-class-8); }
 
 /* クラスラベル（ピル） */
 .class-label {
   display: inline-block;
-  padding: .18rem .6rem;
-  border-radius: 9999px;
-  background-color: #ffffff;
-  border: 1px solid rgba(15, 23, 42, .06);
-  box-shadow: 0 1px 2px rgba(2, 6, 23, .04);
+  padding: var(--spacing-v-xs) var(--spacing-label-x);
+  border-radius: var(--radius-full);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-label);
   font-size: .72rem;
   font-weight: 700;
   line-height: 1;
-  color: #0f172a;
+  color: var(--color-text-main);
 }
 
 /* ============================================================
@@ -106,12 +106,12 @@ body {
 .jump-btn {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  padding: .45rem .9rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(0, 0, 0, .04);
-  background: #ffffff;
-  box-shadow: 0 6px 12px rgba(2, 6, 23, .08);
+  gap: var(--spacing-v-md);
+  padding: var(--spacing-btn-y) var(--spacing-btn-x);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-white);
+  box-shadow: var(--shadow-btn);
   font-weight: 700;
   font-size: .9rem;
   cursor: pointer;
@@ -136,13 +136,13 @@ body {
    認証UI 共通トークン
    ============================================================ */
 :root {
-  --auth-bg:    #f1f5f9;
-  --auth-card:  #ffffff;
-  --auth-muted: #64748b;
-  --ring:       #4f46e5;
-  --ring-soft:  #c7d2fe;
-  --ok:         #16a34a;
-  --danger:     #b91c1c;
+  --auth-bg:    var(--color-auth-bg);
+  --auth-card:  var(--color-white);
+  --auth-muted: var(--color-auth-muted);
+  --ring:       var(--color-auth-ring);
+  --ring-soft:  var(--color-auth-ring-soft);
+  --ok:         var(--color-auth-ok);
+  --danger:     var(--color-auth-danger);
 }
 
 /* 認証状態による表示切替 */
@@ -161,8 +161,8 @@ body {
     radial-gradient(1200px 600px at 10% -10%, #eef2ff 0%, transparent 60%),
     radial-gradient(900px 500px at 110% 10%, #dbeafe 0%, transparent 55%),
     var(--auth-bg);
-  font-family: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
-  padding: 20px;
+  font-family: var(--font-sans);
+  padding: var(--spacing-px-20);
 }
 
 /* ============================================================
@@ -171,32 +171,28 @@ body {
 .auth-card {
   width: min(420px, 100%);
   background: var(--auth-card);
-  border-radius: 16px;
-  padding: 18px 16px 16px;
-  box-shadow:
-    0 20px 40px rgba(15, 23, 42, .10),
-    0 1px 0 rgba(15, 23, 42, .06) inset;
-  border: 1px solid rgba(99, 102, 241, .15);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-px-18) var(--spacing-px-16) var(--spacing-px-16);
+  box-shadow: var(--shadow-auth-card);
+  border: 1px solid var(--color-auth-card-border);
   backdrop-filter: blur(2px);
   transition: box-shadow .2s ease, transform .2s ease;
 }
 
 .auth-card:hover {
-  box-shadow:
-    0 28px 55px rgba(15, 23, 42, .14),
-    0 1px 0 rgba(15, 23, 42, .08) inset;
+  box-shadow: var(--shadow-auth-card-hover);
   transform: translateY(-1px);
 }
 
 .auth-card h1 {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: var(--spacing-v-md);
   margin: 0 0 6px;
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: .01em;
-  color: #0f172a;
+  color: var(--color-text-main);
 }
 
 .auth-card p {
@@ -210,11 +206,11 @@ body {
    ============================================================ */
 #auth-error {
   display: none; /* JSで切り替え */
-  margin-top: .75rem;
-  padding: .5rem .75rem;
-  background: #fff1f2;
-  border: 1px solid #fecdd3;
-  border-radius: .6rem;
+  margin-top: var(--spacing-v-lg);
+  padding: var(--spacing-v-md) var(--spacing-v-lg);
+  background: var(--color-auth-danger-bg);
+  border: 1px solid var(--color-auth-danger-border);
+  border-radius: var(--radius-md);
   color: var(--danger);
   font-size: .85rem;
   text-align: center;
@@ -232,11 +228,11 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .55rem;
-  padding: .65rem .9rem;
-  border-radius: .7rem;
-  border: 1px solid #e2e8f0;
-  background: #fff1f2;
+  gap: var(--spacing-auth-gap);
+  padding: var(--spacing-logout-y) var(--spacing-btn-x);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-auth-logout-border);
+  background: var(--color-auth-danger-bg);
   color: var(--danger);
   cursor: pointer;
   font-weight: 700;
@@ -245,7 +241,7 @@ body {
   transition: background .15s, box-shadow .15s, transform .05s ease;
 }
 .auth-logout:hover {
-  background: #ffe4e6;
+  background: var(--color-auth-danger-hover);
 }
 
 /* ============================================================
@@ -254,7 +250,7 @@ body {
 #auth-chip {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: var(--spacing-v-md);
   background: transparent;
   border: 0;
   box-shadow: none;
@@ -264,34 +260,34 @@ body {
 .auth-chip {
   display: inline-flex;
   align-items: center;
-  gap: .6rem;
-  background: linear-gradient(180deg, #eef2ff 0%, #e0e7ff 100%);
-  color: #3730a3;
-  padding: .35rem .6rem;
-  border-radius: 9999px;
-  border: 1px solid #c7d2fe;
+  gap: var(--spacing-label-x);
+  background: linear-gradient(180deg, #eef2ff 0%, var(--color-auth-dot-ring) 100%);
+  color: var(--color-auth-chip-text);
+  padding: var(--spacing-v-sm) var(--spacing-label-x);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-auth-ring-soft);
   font-weight: 700;
   font-size: .8rem;
-  box-shadow: 0 1px 0 rgba(99, 102, 241, .25) inset;
+  box-shadow: var(--shadow-auth-chip);
 }
 
 .auth-chip .chip-dot {
   width: 10px;
   height: 10px;
-  border-radius: 9999px;
-  background: #22c55e;
-  box-shadow: 0 0 0 2px #e0e7ff;
+  border-radius: var(--radius-full);
+  background: var(--color-auth-chip-dot);
+  box-shadow: 0 0 0 2px var(--color-auth-dot-ring);
 }
 
 .auth-chip button {
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
-  border-radius: .45rem;
-  padding: .2rem .6rem;
+  border: 1px solid var(--color-auth-btn-border);
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-chip-y) var(--spacing-label-x);
   font-weight: 700;
 }
 .auth-chip button:hover {
-  background: #f3f4f6;
+  background: var(--color-auth-btn-hover);
 }
 
 /* ============================================================
