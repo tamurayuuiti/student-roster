@@ -50,7 +50,7 @@ export default function CardGrid({ profiles }) {
   const rAFRef = useRef(null);
   const nextSearchTermRef = useRef("");
 
-  // 検索入力のハンドリング（requestAnimationFrameによる最適化）
+  // 検索入力
   const handleSearchInput = (e) => {
     const val = e.target.value;
     setInputValue(val);
@@ -63,9 +63,10 @@ export default function CardGrid({ profiles }) {
     });
   };
 
-  // フィルタリングとソート処理
+  // フィルタ＆ソート
   const sortedAndFilteredProfiles = useMemo(() => {
     let filtered = profiles;
+
     if (searchTerm) {
       const tokens = normalizeText(searchTerm).split(/\s+/).filter(Boolean);
       filtered = profiles.filter((profile) =>
@@ -78,17 +79,22 @@ export default function CardGrid({ profiles }) {
       );
     }
 
-    const compareFn = sortCriteria === "class" ? compareByClassThenNumberThenReading : compareByReadingThenNumber;
+    const compareFn =
+      sortCriteria === "class"
+        ? compareByClassThenNumberThenReading
+        : compareByReadingThenNumber;
+
     return [...filtered].sort((a, b) => {
       const base = compareFn(a, b);
       return isAscending ? base : -base;
     });
   }, [profiles, searchTerm, sortCriteria, isAscending]);
 
-  // 存在するクラス一覧の抽出
+  // クラス一覧
   const classNamesList = useMemo(() => {
     const classSet = new Set();
     profiles.forEach((p) => classSet.add(p.class));
+
     return Array.from(classSet).sort((a, b) => {
       const na = Number(String(a).replace("組", ""));
       const nb = Number(String(b).replace("組", ""));
@@ -96,10 +102,13 @@ export default function CardGrid({ profiles }) {
     });
   }, [profiles]);
 
-  // ジャンプボタンの表示条件判定
-  const shouldShowJumpButtons = !searchTerm && sortedAndFilteredProfiles.length === profiles.length && sortCriteria === "class";
+  // ジャンプボタン表示判定
+  const shouldShowJumpButtons =
+    !searchTerm &&
+    sortedAndFilteredProfiles.length === profiles.length &&
+    sortCriteria === "class";
 
-  // 指定したクラスの先頭要素へスクロール
+  // スクロール
   const handleJump = (classNumber) => {
     const targetElement = document.getElementById(`class-start-${classNumber}`);
     if (targetElement) {
@@ -112,7 +121,7 @@ export default function CardGrid({ profiles }) {
 
   return (
     <>
-      {/* コントロールパネル */}
+      {/* コントロール */}
       <div className="
         flex flex-col lg:flex-row
         justify-between items-start lg:items-center
@@ -154,6 +163,7 @@ export default function CardGrid({ profiles }) {
               transition duration-150
             "
           />
+
           <svg
             className="
               absolute left-3 top-1/2
@@ -168,13 +178,16 @@ export default function CardGrid({ profiles }) {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0 1 14 0z" />
           </svg>
         </div>
 
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full lg:w-auto justify-end">
           <div className="flex items-center space-x-3 w-full sm:w-auto">
-            <label htmlFor="sort-criteria" className="text-sm font-medium text-text-main whitespace-nowrap">ソート基準:</label>
+            <label htmlFor="sort-criteria" className="text-sm font-medium text-text-main whitespace-nowrap">
+              ソート基準:
+            </label>
+
             <select
               id="sort-criteria"
               value={sortCriteria}
@@ -195,7 +208,8 @@ export default function CardGrid({ profiles }) {
                 focus:border-primary
 
                 transition duration-150
-              ">
+              "
+            >
               <option value="class">クラス（番号順）</option>
               <option value="reading">氏名（ふりがな順）</option>
             </select>
@@ -222,7 +236,8 @@ export default function CardGrid({ profiles }) {
               focus:ring-4 focus:ring-primary-ring
 
               transition duration-150
-            ">
+            "
+          >
             <svg
               id="sort-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -245,12 +260,15 @@ export default function CardGrid({ profiles }) {
             >
               <path d="m18 15-6-6-6 6" />
             </svg>
-            <span id="sort-label" className="font-semibold">{isAscending ? "昇順" : "降順"}</span>
+
+            <span id="sort-label" className="font-semibold">
+              {isAscending ? "昇順" : "降順"}
+            </span>
           </button>
         </div>
       </div>
 
-      {/* クラスジャンプボタン */}
+      {/* ジャンプボタン */}
       <div
         id="jump-button-container"
         className={`
@@ -269,7 +287,9 @@ export default function CardGrid({ profiles }) {
       >
         {classNamesList.map((className) => {
           const classNumber = className.replace("組", "");
-          const colorInfo = CLASS_BASE_COLORS[classNumber] || { base: "#6B7280", text: "#ffffff" };
+          const colorInfo =
+            CLASS_BASE_COLORS[classNumber] || { base: "#6B7280", text: "#ffffff" };
+
           return (
             <button
               key={className}
@@ -305,15 +325,23 @@ export default function CardGrid({ profiles }) {
         })}
       </div>
 
-      {/* 件数表示 */}
+      {/* 件数 */}
       <div className="flex justify-end mb-2 text-sm text-text-sub font-medium">
-        表示件数: <span id="member-count" className="mx-1 text-text-main">{sortedAndFilteredProfiles.length}</span> / <span id="total-count" className="ml-1">{profiles.length}</span>
+        表示件数:
+        <span id="member-count" className="mx-1 text-text-main">
+          {sortedAndFilteredProfiles.length}
+        </span>
+        /
+        <span id="total-count" className="ml-1">
+          {profiles.length}
+        </span>
       </div>
 
-      {/* カードグリッド */}
+      {/* グリッド */}
       <div id="card-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {sortedAndFilteredProfiles.map((profile, index) => {
           let isFirstInClass = false;
+
           if (sortCriteria === "class" && !searchTerm) {
             if (profile.class !== lastClass) {
               isFirstInClass = true;

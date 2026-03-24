@@ -33,7 +33,6 @@ export function useRoster() {
       setAuthError("");
       if (currentUser) {
         setUser(currentUser);
-        document.documentElement.setAttribute("data-auth", "signedin");
 
         try {
           const snap = await getDoc(doc(db, "roster", "current"));
@@ -62,7 +61,6 @@ export function useRoster() {
       } else {
         setUser(null);
         setProfiles([]);
-        document.documentElement.setAttribute("data-auth", "signedout");
       }
     });
 

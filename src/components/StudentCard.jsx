@@ -7,18 +7,18 @@ export default function StudentCard({ profile, jumpId }) {
   return (
     <div
       id={jumpId}
+      /* 1. ここで「このカードの基本色」を CSS 変数として定義する */
       style={{
-        // Tailwind に頼らず、ブラウザに直接「この色を使って」と命令する
-        backgroundColor: `var(--color-class-${classNumber}-bg)`,
-        borderLeftColor: `var(--color-class-${classNumber})`
-    }}
+        "--card-color": `var(--color-class-${classNumber})`
+      }}
       className={`
-        /* レイアウト・サイズ */
+        /* レイアウト */
         flex flex-col justify-between p-4 snap-start max-sm:min-h-30
         
-        /* 背景・枠線 */
-        bg-(--class-bg-color) bg-clip-padding 
-        border-l-(length:--spacing-v-md) border-l-(--class-border-color) rounded-xl
+        /* 背景・枠線：上で定義した --card-color を Tailwind でこねくり回す */
+        /* 背景は 6% 透過、左線はそのままの色 */
+        bg-(--card-color)/6
+        border-l-(length:--spacing-v-md) border-l-(--card-color) rounded-xl
         
         /* 影・アニメーション */
         shadow-(--shadow-card) transition-all duration-200 
@@ -26,6 +26,7 @@ export default function StudentCard({ profile, jumpId }) {
         motion-reduce:transition-none
       `}
     >
+      {/* ...中身は変更なし... */}
       <div className="flex justify-between items-start mb-2">
         <span className={`
           inline-block rounded-full bg-white border border-border-soft font-bold leading-none text-text-main
@@ -33,7 +34,7 @@ export default function StudentCard({ profile, jumpId }) {
         `}>
           {profile.class}
         </span>
-        <span className="text-lg font-mono font-bold text-gray-500">
+        <span className="text-lg font-mono font-bold text-text-sub opacity-80">
           {paddedNumber}
         </span>
       </div>

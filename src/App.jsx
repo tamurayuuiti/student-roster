@@ -34,7 +34,7 @@ export default function App() {
 
   // ===== アプリ本体 =====
   return (
-    <div id="app-root" className="bg-gray-100 min-h-screen">
+    <div id="app-root" className="bg-bg-main min-h-screen">
       <Header user={user} handleLogout={handleLogout} />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <CardGrid profiles={profiles} />
