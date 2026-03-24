@@ -37,46 +37,22 @@
   /* 2. 基礎となる色 (Auth 固有) */
   --color-auth-bg: #f1f5f9;
   --color-auth-muted: #64748b;
-  --color-ring-soft: #c7d2fe;
   --color-auth-ok: #16a34a;
   --color-auth-danger: #b91c1c;
   --color-auth-danger-bg: #fff1f2;
   --color-auth-danger-border: #fecdd3;
-  --color-auth-danger-hover: #ffe4e6;
-  --color-auth-logout-border: #e2e8f0;
-  --color-auth-chip-text: #3730a3;
-  --color-auth-chip-dot: #22c55e;
-  --color-auth-dot-ring: #e0e7ff;
-  --color-auth-btn-border: #e5e7eb;
-  --color-auth-btn-hover: #f3f4f6;
   --color-auth-card-border: rgba(99, 102, 241, 0.15);
 
   /* 3. プライマリーカラー (コントロールパネル等のアクセント) */
-  --color-primary: #4f46e5;
-  --color-primary-hover: #4338ca;
-  --color-primary-ring: #a5b4fc;
+  --color-accent: #4f46e5;
+  --color-accent-ring: #a5b4fc;
 
   /* 4. エイリアス (使いやすくするための別名) */
   --color-ok: var(--color-auth-ok);
   --color-danger: var(--color-auth-danger);
   --color-auth-card: var(--color-white);
 
-  /* =========================================
-     Box Shadows
-     ========================================= */
-  --shadow-header: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.06);
-  --shadow-label: 0 1px 2px rgba(2, 6, 23, 0.04);
-  --shadow-btn: 0 6px 12px rgba(2, 6, 23, 0.08);
-  
-  --shadow-auth-card: 0 20px 40px rgba(15, 23, 42, 0.10), 0 1px 0 rgba(15, 23, 42, 0.06) inset;
-  --shadow-auth-card-hover: 0 28px 55px rgba(15, 23, 42, 0.14), 0 1px 0 rgba(15, 23, 42, 0.08) inset;
-  --shadow-auth-chip: 0 1px 0 rgba(99, 102, 241, 0.25) inset;
-
-  /* =========================================
-     Fonts
-     ========================================= */
+  /* フォントファミリー */
   --font-sans: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
 }
 

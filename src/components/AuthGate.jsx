@@ -21,9 +21,9 @@ export default function AuthGate({ user, handleLogin, isAuthLoading, authError }
       <div className={`
         w-[min(420px,100%)] bg-auth-card rounded-2xl 
         pt-4.5 px-4 pb-4 
-        shadow-(--shadow-auth-card) border border-auth-card-border backdrop-blur-[2px] 
+        shadow-md border border-auth-card-border backdrop-blur-[2px] 
         transition-all duration-200 ease-in-out motion-reduce:transition-none
-        hover:shadow-(--shadow-auth-card-hover) hover:-translate-y-px
+        hover:shadow-xl hover:-translate-y-px
       `}>
         
         <h1 className="flex justify-center items-center gap-2 mb-1.5 text-[1.15rem] font-bold tracking-[0.01em] text-text-main">

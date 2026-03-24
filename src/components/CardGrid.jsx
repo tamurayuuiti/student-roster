@@ -122,22 +122,7 @@ export default function CardGrid({ profiles }) {
   return (
     <>
       {/* コントロール */}
-      <div className="
-        flex flex-col lg:flex-row
-        justify-between items-start lg:items-center
-
-        max-w-7xl mx-auto
-        p-4
-
-        space-y-4 lg:space-y-0 lg:space-x-6
-
-        mb-4
-
-        bg-(--color-white)
-        rounded-2xl
-        shadow-(--shadow-card)
-        border border-border-light
-      ">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center max-w-7xl mx-auto p-4 space-y-4 lg:space-y-0 lg:space-x-6 mb-4 bg-(--color-white) rounded-2xl shadow-md border border-border-light">
         <div className="w-full lg:w-1/3 relative">
           <input
             type="text"
@@ -145,34 +130,10 @@ export default function CardGrid({ profiles }) {
             value={inputValue}
             onChange={handleSearchInput}
             placeholder="名前、番号、クラスで検索"
-            className="
-              w-full
-
-              p-2 pl-10
-
-              border border-border-light
-              rounded-lg
-              shadow-sm
-
-              text-text-main
-              bg-transparent
-
-              focus:ring focus:ring-primary-ring
-              focus:border-primary
-
-              transition duration-150
-            "
+            className="w-full py-2 px-4 pl-10 rounded-lg bg-white border border-slate-400 shadow-sm text-text-main focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
           />
-
           <svg
-            className="
-              absolute left-3 top-1/2
-              transform -translate-y-1/2
-
-              h-5 w-5
-
-              text-text-sub
-            "
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-text-sub"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -187,28 +148,11 @@ export default function CardGrid({ profiles }) {
             <label htmlFor="sort-criteria" className="text-sm font-medium text-text-main whitespace-nowrap">
               ソート基準:
             </label>
-
             <select
               id="sort-criteria"
               value={sortCriteria}
               onChange={(e) => setSortCriteria(e.target.value)}
-              className="
-                grow
-
-                p-2
-
-                border border-border-light
-                rounded-lg
-                shadow-sm
-
-                text-text-main
-                bg-transparent
-
-                focus:ring focus:ring-primary-ring
-                focus:border-primary
-
-                transition duration-150
-              "
+              className="grow p-2 rounded-lg bg-white border border-slate-300 text-text-main focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
             >
               <option value="class">クラス（番号順）</option>
               <option value="reading">氏名（ふりがな順）</option>
@@ -218,25 +162,7 @@ export default function CardGrid({ profiles }) {
           <button
             id="sort-direction-toggle"
             onClick={() => setIsAscending(!isAscending)}
-            className="
-              flex items-center justify-center
-
-              p-2
-              w-full sm:w-auto
-
-              bg-primary text-(--color-white)
-              rounded-lg
-              shadow-(--shadow-btn)
-
-              cursor-pointer
-
-              hover:bg-primary-hover
-
-              focus:outline-none
-              focus:ring-4 focus:ring-primary-ring
-
-              transition duration-150
-            "
+            className="flex items-center justify-center py-2.5 px-3 w-full sm:w-auto rounded-lg gap-0.5 bg-white border border-slate-300 text-text-main hover:bg-slate-50 hover:border-slate-400 focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
           >
             <svg
               id="sort-icon"
@@ -249,19 +175,11 @@ export default function CardGrid({ profiles }) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={`
-                mr-2
-
-                transform
-                transition duration-300
-
-                ${isAscending ? "rotate-0" : "rotate-180"}
-              `}
+              className={`transform transition duration-300 ${isAscending ? "rotate-0" : "rotate-180"}`}
             >
               <path d="m18 15-6-6-6 6" />
             </svg>
-
-            <span id="sort-label" className="font-semibold">
+            <span id="sort-label" className="text-base font-medium text-text-main">
               {isAscending ? "昇順" : "降順"}
             </span>
           </button>
@@ -271,47 +189,17 @@ export default function CardGrid({ profiles }) {
       {/* ジャンプボタン */}
       <div
         id="jump-button-container"
-        className={`
-          mb-6
-
-          flex flex-wrap justify-center
-          gap-3 p-4
-
-          bg-(--color-white)
-          rounded-2xl
-          shadow-(--shadow-card)
-          border border-border-light
-
-          ${shouldShowJumpButtons ? "" : "hidden"}
-        `}
+        className={`mb-6 flex flex-wrap justify-center gap-3 p-4 bg-(--color-white) rounded-2xl shadow border border-border-light ${shouldShowJumpButtons ? "" : "hidden"}`}
       >
         {classNamesList.map((className) => {
           const classNumber = className.replace("組", "");
-          const colorInfo =
-            GROUP_THEMES[classNumber] || { base: "#6B7280", text: "#ffffff" };
+          const colorInfo = GROUP_THEMES[classNumber] || { base: "#6B7280", text: "#ffffff" };
 
           return (
             <button
               key={className}
               type="button"
-              className="
-                inline-flex items-center gap-2
-
-                py-2 px-3.5
-
-                rounded-full
-                border border-border-light
-                shadow-(--shadow-btn)
-
-                font-bold text-[0.9rem] text-(--btn-text)
-                bg-(--btn-bg)
-
-                cursor-pointer
-
-                transition-all duration-150 ease-out
-                hover:-translate-y-0.5 hover:opacity-95
-                motion-reduce:transition-none motion-reduce:transform-none
-              "
+              className="inline-flex items-center gap-2 py-2 px-3.5 rounded-full border border-border-light shadow-sm font-bold text-[0.9rem] text-(--btn-text) bg-(--btn-bg) cursor-pointer transition-all duration-150 ease-out hover:-translate-y-0.5 hover:opacity-95 motion-reduce:transition-none motion-reduce:transform-none"
               style={{
                 "--btn-bg": colorInfo.base,
                 "--btn-text": colorInfo.text
