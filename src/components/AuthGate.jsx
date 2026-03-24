@@ -5,12 +5,30 @@ const DEFAULT_SUBTITLE = "このページを利用するには、Googleアカウ
 
 export default function AuthGate({ user, handleLogin, isAuthLoading, authError, handleLogout }) {
   return (
-    <section id="auth-gate" aria-live="polite" className="min-h-screen flex items-center justify-center p-4 md:p-8 bg-gray-100">
-      <div className="auth-card max-w-md w-full bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-        <div className="text-xl font-bold text-slate-900 tracking-tight mb-2 text-center">
+    <section
+      id="auth-gate"
+      aria-live="polite"
+      style={{
+        "--auth-gradient": "radial-gradient(1200px 600px at 10% -10%, #eef2ff 0%, transparent 60%), radial-gradient(900px 500px at 110% 10%, #dbeafe 0%, transparent 55%), var(--color-auth-bg)"
+      }}
+      className={`
+        min-h-screen grid place-items-center p-(--spacing-px-20)
+        bg-(--auth-gradient) font-(--font-sans)
+      `}
+    >
+      <div className={`
+        w-[min(420px,100%)] bg-auth-card rounded-2xl 
+        pt-px-18 px-(--spacing-px-16) pb-(--spacing-px-16) 
+        shadow-(--shadow-auth-card) border border-auth-card-border backdrop-blur-[2px] 
+        transition-all duration-200 ease-in-out motion-reduce:transition-none
+        hover:shadow-(--shadow-auth-card-hover) hover:-translate-y-px
+      `}>
+        
+        <h1 className="flex justify-center items-center gap-(--spacing-v-md) mb-1.5 text-[1.15rem] font-bold tracking-[0.01em] text-text-main">
           ログイン
-        </div>
-        <p id="auth-subtitle" className="text-slate-500 text-sm mb-4 text-center">
+        </h1>
+        
+        <p id="auth-subtitle" className="mb-[12px] text-auth-muted text-[0.86rem] text-center">
           {user && HOLD_AFTER_LOGIN ? "サインイン済みです。この画面でログアウトできます。" : DEFAULT_SUBTITLE}
         </p>
 
@@ -18,11 +36,15 @@ export default function AuthGate({ user, handleLogin, isAuthLoading, authError, 
           <div className="flex justify-center" id="auth-signedout">
             <button
               id="auth-login-popup"
-              className="gsi-material-button flex items-center justify-center space-x-2 border border-gray-300 rounded hover:bg-gray-50 transition px-4 py-2"
               type="button"
               onClick={handleLogin}
               disabled={isAuthLoading}
               style={{ width: "260px" }}
+              className={`
+                gsi-material-button flex items-center justify-center space-x-2 
+                border border-gray-300 rounded px-4 py-2 transition motion-reduce:transition-none
+                hover:bg-gray-50
+              `}
             >
               <div className="gsi-material-button-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5 block">
@@ -38,15 +60,33 @@ export default function AuthGate({ user, handleLogin, isAuthLoading, authError, 
           </div>
         ) : (
           <div id="auth-signedin" className="mt-2 text-center">
-            <div id="auth-data" className="auth-meta mb-2 text-green-600 font-bold">状態: 認証済み</div>
-            <button id="auth-logout" onClick={handleLogout} className="auth-logout text-red-600 font-medium underline mt-1">
+            <div id="auth-data" className="mb-2 text-ok font-bold">状態: 認証済み</div>
+            <button 
+              id="auth-logout" 
+              onClick={handleLogout} 
+              className={`
+                w-full inline-flex items-center justify-center gap-auth-gap 
+                mt-2.5 py-logout-y px-btn-x 
+                rounded-lg border border-auth-logout-border 
+                bg-auth-danger-bg text-danger font-bold text-[0.85rem] cursor-pointer 
+                transition-all duration-150 ease-out motion-reduce:transition-none
+                hover:bg-auth-danger-hover
+              `}
+            >
               ログアウト
             </button>
           </div>
         )}
 
         {authError && (
-          <div id="auth-error" className="text-red-600 text-sm mt-4 text-center font-medium block">
+          <div 
+            id="auth-error" 
+            className={`
+              block mt-(--spacing-v-lg) py-(--spacing-v-md) px-(--spacing-v-lg) 
+              bg-auth-danger-bg border border-auth-danger-border 
+              rounded-md text-danger text-[0.85rem] text-center wrap-break-word
+            `}
+          >
             {authError}
           </div>
         )}
