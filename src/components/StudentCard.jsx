@@ -9,7 +9,7 @@ export default function StudentCard({ profile, jumpId }) {
       id={jumpId}
       /* 1. ここで「このカードの基本色」を CSS 変数として定義する */
       style={{
-        "--card-color": `var(--color-class-${classNumber})`
+        "--card-color": `var(--color-group-${classNumber})`
       }}
       className={`
         /* レイアウト */

@@ -5,15 +5,15 @@ import { normalizeText } from "../utils/normalize";
 import StudentCard from "./StudentCard";
 
 // クラス別の固有色定義
-const CLASS_BASE_COLORS = {
-  "1": { base: "var(--color-class-1)", text: "var(--color-text-main)" },
-  "2": { base: "var(--color-class-2)", text: "var(--color-white)" },
-  "3": { base: "var(--color-class-3)", text: "var(--color-white)" },
-  "4": { base: "var(--color-class-4)", text: "var(--color-white)" },
-  "5": { base: "var(--color-class-5)", text: "var(--color-text-main)" },
-  "6": { base: "var(--color-class-6)", text: "var(--color-white)" },
-  "7": { base: "var(--color-class-7)", text: "var(--color-white)" },
-  "8": { base: "var(--color-class-8)", text: "var(--color-white)" }
+const GROUP_THEMES = {
+  "1": { base: "var(--color-group-1)", text: "var(--color-text-main)" },
+  "2": { base: "var(--color-group-2)", text: "var(--color-white)" },
+  "3": { base: "var(--color-group-3)", text: "var(--color-white)" },
+  "4": { base: "var(--color-group-4)", text: "var(--color-white)" },
+  "5": { base: "var(--color-group-5)", text: "var(--color-text-main)" },
+  "6": { base: "var(--color-group-6)", text: "var(--color-white)" },
+  "7": { base: "var(--color-group-7)", text: "var(--color-white)" },
+  "8": { base: "var(--color-group-8)", text: "var(--color-white)" }
 };
 
 const collator = new Intl.Collator("ja", { sensitivity: "base", numeric: true });
@@ -288,7 +288,7 @@ export default function CardGrid({ profiles }) {
         {classNamesList.map((className) => {
           const classNumber = className.replace("組", "");
           const colorInfo =
-            CLASS_BASE_COLORS[classNumber] || { base: "#6B7280", text: "#ffffff" };
+            GROUP_THEMES[classNumber] || { base: "#6B7280", text: "#ffffff" };
 
           return (
             <button
