@@ -8,9 +8,10 @@ export default function StudentCard({ profile, jumpId }) {
     <div
       id={jumpId}
       style={{
-        '--class-bg-color': `var(--color-class-${classNumber}-bg)`,
-        '--class-border-color': `var(--color-class-${classNumber})`
-      }}
+        // Tailwind に頼らず、ブラウザに直接「この色を使って」と命令する
+        backgroundColor: `var(--color-class-${classNumber}-bg)`,
+        borderLeftColor: `var(--color-class-${classNumber})`
+    }}
       className={`
         /* レイアウト・サイズ */
         flex flex-col justify-between p-4 snap-start max-sm:min-h-30
