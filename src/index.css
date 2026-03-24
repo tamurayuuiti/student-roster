@@ -110,4 +110,4 @@
   --font-sans: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
 }
 
-@import "./css/google-button.css";
+@import "./styles/google-button.css";
