@@ -4,19 +4,21 @@ import { useState, useRef, useMemo } from "react";
 import { normalizeText } from "../utils/normalize";
 import StudentCard from "./StudentCard";
 
+// クラス別の固有色定義
 const CLASS_BASE_COLORS = {
-  "1": { base: "#e0e0e0", text: "#111827" },
-  "2": { base: "#222222", text: "#ffffff" },
-  "3": { base: "#e53935", text: "#ffffff" },
-  "4": { base: "#2196f3", text: "#ffffff" },
-  "5": { base: "#fbc02d", text: "#111827" },
-  "6": { base: "#43a047", text: "#ffffff" },
-  "7": { base: "#ff9800", text: "#ffffff" },
-  "8": { base: "#f06292", text: "#ffffff" }
+  "1": { base: "var(--color-class-1)", text: "var(--color-text-main)" },
+  "2": { base: "var(--color-class-2)", text: "var(--color-white)" },
+  "3": { base: "var(--color-class-3)", text: "var(--color-white)" },
+  "4": { base: "var(--color-class-4)", text: "var(--color-white)" },
+  "5": { base: "var(--color-class-5)", text: "var(--color-text-main)" },
+  "6": { base: "var(--color-class-6)", text: "var(--color-white)" },
+  "7": { base: "var(--color-class-7)", text: "var(--color-white)" },
+  "8": { base: "var(--color-class-8)", text: "var(--color-white)" }
 };
 
 const collator = new Intl.Collator("ja", { sensitivity: "base", numeric: true });
 
+// クラス、番号、ふりがなの順で比較
 function compareByClassThenNumberThenReading(a, b) {
   const ca = Number(String(a.class).replace("組", "")) || 0;
   const cb = Number(String(b.class).replace("組", "")) || 0;
@@ -29,6 +31,7 @@ function compareByClassThenNumberThenReading(a, b) {
   return collator.compare(a.reading || "", b.reading || "");
 }
 
+// ふりがな、番号の順で比較
 function compareByReadingThenNumber(a, b) {
   const r = collator.compare(a.reading || "", b.reading || "");
   if (r !== 0) return r;
@@ -47,6 +50,7 @@ export default function CardGrid({ profiles }) {
   const rAFRef = useRef(null);
   const nextSearchTermRef = useRef("");
 
+  // 検索入力のハンドリング（requestAnimationFrameによる最適化）
   const handleSearchInput = (e) => {
     const val = e.target.value;
     setInputValue(val);
@@ -59,6 +63,7 @@ export default function CardGrid({ profiles }) {
     });
   };
 
+  // フィルタリングとソート処理
   const sortedAndFilteredProfiles = useMemo(() => {
     let filtered = profiles;
     if (searchTerm) {
@@ -80,6 +85,7 @@ export default function CardGrid({ profiles }) {
     });
   }, [profiles, searchTerm, sortCriteria, isAscending]);
 
+  // 存在するクラス一覧の抽出
   const classNamesList = useMemo(() => {
     const classSet = new Set();
     profiles.forEach((p) => classSet.add(p.class));
@@ -90,8 +96,10 @@ export default function CardGrid({ profiles }) {
     });
   }, [profiles]);
 
+  // ジャンプボタンの表示条件判定
   const shouldShowJumpButtons = !searchTerm && sortedAndFilteredProfiles.length === profiles.length && sortCriteria === "class";
 
+  // 指定したクラスの先頭要素へスクロール
   const handleJump = (classNumber) => {
     const targetElement = document.getElementById(`class-start-${classNumber}`);
     if (targetElement) {
@@ -105,7 +113,22 @@ export default function CardGrid({ profiles }) {
   return (
     <>
       {/* コントロールパネル */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 max-w-7xl mx-auto space-y-4 lg:space-y-0 lg:space-x-6 p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+      <div className="
+        flex flex-col lg:flex-row
+        justify-between items-start lg:items-center
+
+        max-w-7xl mx-auto
+        p-4
+
+        space-y-4 lg:space-y-0 lg:space-x-6
+
+        mb-(--spacing-v-xl)
+
+        bg-(--color-white)
+        rounded-xl
+        shadow-(--shadow-card)
+        border border-border-light
+      ">
         <div className="w-full lg:w-1/3 relative">
           <input
             type="text"
@@ -113,22 +136,66 @@ export default function CardGrid({ profiles }) {
             value={inputValue}
             onChange={handleSearchInput}
             placeholder="名前、番号、クラスで検索"
-            className="w-full p-2 pl-10 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 text-gray-700"
+            className="
+              w-full
+
+              p-2 pl-10
+
+              border border-border-light
+              rounded-md
+              shadow-sm
+
+              text-text-main
+              bg-transparent
+
+              focus:ring focus:ring-primary-ring
+              focus:border-primary
+
+              transition duration-150
+            "
           />
-          <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            className="
+              absolute left-3 top-1/2
+              transform -translate-y-1/2
+
+              h-5 w-5
+
+              text-text-sub
+            "
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
 
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full lg:w-auto justify-end">
           <div className="flex items-center space-x-3 w-full sm:w-auto">
-            <label htmlFor="sort-criteria" className="text-sm font-medium text-gray-700 whitespace-nowrap">ソート基準:</label>
+            <label htmlFor="sort-criteria" className="text-sm font-medium text-text-main whitespace-nowrap">ソート基準:</label>
             <select
               id="sort-criteria"
               value={sortCriteria}
               onChange={(e) => setSortCriteria(e.target.value)}
-              className="flex-grow p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
-            >
+              className="
+                grow
+
+                p-2
+
+                border border-border-light
+                rounded-md
+                shadow-sm
+
+                text-text-main
+                bg-transparent
+
+                focus:ring focus:ring-primary-ring
+                focus:border-primary
+
+                transition duration-150
+              ">
               <option value="class">クラス（番号順）</option>
               <option value="reading">氏名（ふりがな順）</option>
             </select>
@@ -137,9 +204,45 @@ export default function CardGrid({ profiles }) {
           <button
             id="sort-direction-toggle"
             onClick={() => setIsAscending(!isAscending)}
-            className="flex items-center justify-center p-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-150 w-full sm:w-auto"
-          >
-            <svg id="sort-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`mr-2 transform transition duration-300 ${isAscending ? "rotate-0" : "rotate-180"}`}>
+            className="
+              flex items-center justify-center
+
+              p-2
+              w-full sm:w-auto
+
+              bg-primary text-(--color-white)
+              rounded-md
+              shadow-(--shadow-btn)
+
+              cursor-pointer
+
+              hover:bg-primary-hover
+
+              focus:outline-none
+              focus:ring-4 focus:ring-primary-ring
+
+              transition duration-150
+            ">
+            <svg
+              id="sort-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`
+                mr-2
+
+                transform
+                transition duration-300
+
+                ${isAscending ? "rotate-0" : "rotate-180"}
+              `}
+            >
               <path d="m18 15-6-6-6 6" />
             </svg>
             <span id="sort-label" className="font-semibold">{isAscending ? "昇順" : "降順"}</span>
@@ -148,7 +251,22 @@ export default function CardGrid({ profiles }) {
       </div>
 
       {/* クラスジャンプボタン */}
-      <div id="jump-button-container" className={`mb-6 flex flex-wrap justify-center gap-3 p-4 bg-white rounded-xl shadow-lg border border-gray-100 ${shouldShowJumpButtons ? "" : "hidden"}`}>
+      <div
+        id="jump-button-container"
+        className={`
+          mb-6
+
+          flex flex-wrap justify-center
+          gap-3 p-4
+
+          bg-(--color-white)
+          rounded-xl
+          shadow-(--shadow-card)
+          border border-border-light
+
+          ${shouldShowJumpButtons ? "" : "hidden"}
+        `}
+      >
         {classNamesList.map((className) => {
           const classNumber = className.replace("組", "");
           const colorInfo = CLASS_BASE_COLORS[classNumber] || { base: "#6B7280", text: "#ffffff" };
@@ -156,8 +274,28 @@ export default function CardGrid({ profiles }) {
             <button
               key={className}
               type="button"
-              className="jump-btn px-4 py-2 rounded font-bold shadow-sm transition hover:opacity-80"
-              style={{ backgroundColor: colorInfo.base, color: colorInfo.text }}
+              className="
+                inline-flex items-center gap-(--spacing-v-md)
+
+                py-btn-y px-btn-x
+
+                rounded-full
+                border border-border-light
+                shadow-(--shadow-btn)
+
+                font-bold text-[0.9rem] text-(--btn-text)
+                bg-(--btn-bg)
+
+                cursor-pointer
+
+                transition-all duration-150 ease-out
+                hover:-translate-y-0.5 hover:opacity-95
+                motion-reduce:transition-none motion-reduce:transform-none
+              "
+              style={{
+                "--btn-bg": colorInfo.base,
+                "--btn-text": colorInfo.text
+              }}
               aria-label={`${className} へジャンプ`}
               onClick={() => handleJump(classNumber)}
             >
@@ -168,8 +306,8 @@ export default function CardGrid({ profiles }) {
       </div>
 
       {/* 件数表示 */}
-      <div className="flex justify-end mb-2 text-sm text-gray-500 font-medium">
-        表示件数: <span id="member-count" className="mx-1 text-gray-900">{sortedAndFilteredProfiles.length}</span> / <span id="total-count" className="ml-1">{profiles.length}</span>
+      <div className="flex justify-end mb-2 text-sm text-text-sub font-medium">
+        表示件数: <span id="member-count" className="mx-1 text-text-main">{sortedAndFilteredProfiles.length}</span> / <span id="total-count" className="ml-1">{profiles.length}</span>
       </div>
 
       {/* カードグリッド */}

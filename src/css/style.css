@@ -1,44 +1,10 @@
-/* ============================================================
-   ベース
-   ============================================================ */
 body {
   font-family: var(--font-sans);
   background-color: var(--color-bg-main);
   color: var(--color-text-main);
 }
 
-/* ============================================================
-   クラスジャンプボタン
-   ============================================================ */
-.jump-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-v-md);
-  padding: var(--spacing-btn-y) var(--spacing-btn-x);
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border-light);
-  background: var(--color-white);
-  box-shadow: var(--shadow-btn);
-  font-weight: 700;
-  font-size: .9rem;
-  cursor: pointer;
-  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
-}
-.jump-btn:hover {
-  transform: translateY(-2px);
-  opacity: .95;
-}
-
 /* 認証状態による表示切替 */
 [data-auth="loading"]  #app-root { display: none; }
 [data-auth="signedout"] #app-root { display: none; }
 [data-auth="signedin"]  #auth-gate { display: none; }
-
-/* ============================================================
-   低モーション環境の配慮
-   ============================================================ */
-@media (prefers-reduced-motion: reduce) {
-  .jump-btn {
-    transition: none;
-  }
-}

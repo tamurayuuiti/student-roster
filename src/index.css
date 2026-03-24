@@ -23,6 +23,16 @@
 }
 
 @theme {
+  /* クラス別カラーを Tailwind ユーティリティとして登録 */
+  --color-class-1: var(--color-class-1);
+  --color-class-2: var(--color-class-2);
+  --color-class-3: var(--color-class-3);
+  --color-class-4: var(--color-class-4);
+  --color-class-5: var(--color-class-5);
+  --color-class-6: var(--color-class-6);
+  --color-class-7: var(--color-class-7);
+  --color-class-8: var(--color-class-8);
+  
   /* 1. 基本色 (全体で共通) */
   --color-white: #ffffff;
   --color-bg-main: #fcfcfc;
@@ -48,7 +58,12 @@
   --color-auth-btn-hover: #f3f4f6;
   --color-auth-card-border: rgba(99, 102, 241, 0.15);
 
-  /* 3. エイリアス (使いやすくするための別名) */
+  /* 3. プライマリーカラー (コントロールパネル等のアクセント) */
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-ring: #a5b4fc;
+
+  /* 4. エイリアス (使いやすくするための別名) */
   --color-ok: var(--color-auth-ok);
   --color-danger: var(--color-auth-danger);
   --color-auth-card: var(--color-white);
@@ -56,22 +71,16 @@
   /* =========================================
      Spacing (共通・汎用)
      ========================================= */
-  /* プレフィックス 'v-' (visual/value) を付与することで、
-     標準の sm(0.5rem) 等との競合を避け、かつ呼び出しを短くします。
-     呼び出し例: p-v-sm, gap-v-md
-  */
   --spacing-v-xs: 0.18rem;
   --spacing-v-sm: 0.35rem;
   --spacing-v-md: 0.5rem;
   --spacing-v-lg: 0.75rem;
   --spacing-v-xl: 1rem;
   
-  /* 固定ピクセル: 標準の p-16 (64px) を壊さないよう 'px-' を付与 */
   --spacing-px-16: 16px;
   --spacing-px-18: 18px;
   --spacing-px-20: 20px;
 
-  /* セマンティック定義: そのままの名前で呼び出し可能 (p-btn-x など) */
   --spacing-btn-y: 0.45rem;
   --spacing-btn-x: 0.9rem;
   --spacing-label-x: 0.6rem;
@@ -82,8 +91,6 @@
   /* =========================================
      Border Radius
      ========================================= */
-  /* 独自のデザインシステムとして上書き。
-     標準値(rounded-sm等)もそのまま使いたい場合は --radius-v-sm 等に変更してください。 */
   --radius-sm: 0.45rem;
   --radius-md: 0.6rem;
   --radius-lg: 0.7rem;
@@ -107,7 +114,6 @@
   /* =========================================
      Fonts
      ========================================= */
-  /* --font-sans を上書きすることで、プロジェクト全体のデフォルトフォントになります */
   --font-sans: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
 }
 
