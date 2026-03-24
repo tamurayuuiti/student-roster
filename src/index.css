@@ -62,26 +62,6 @@
   --color-auth-card: var(--color-white);
 
   /* =========================================
-     Spacing (共通・汎用)
-     ========================================= */
-  --spacing-v-xs: 0.18rem;
-  --spacing-v-sm: 0.35rem;
-  --spacing-v-md: 0.5rem;
-  --spacing-v-lg: 0.75rem;
-  --spacing-v-xl: 1rem;
-  
-  --spacing-px-16: 16px;
-  --spacing-px-18: 18px;
-  --spacing-px-20: 20px;
-
-  --spacing-btn-y: 0.45rem;
-  --spacing-btn-x: 0.9rem;
-  --spacing-label-x: 0.6rem;
-  --spacing-chip-y: 0.2rem;
-  --spacing-logout-y: 0.65rem;
-  --spacing-auth-gap: 0.55rem;
-
-  /* =========================================
      Border Radius
      ========================================= */
   --radius-sm: 0.45rem;

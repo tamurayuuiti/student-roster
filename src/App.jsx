@@ -2,7 +2,7 @@
 
 // コンポーネントのインポート
 import Header from "./components/Header";
-import AuthGate, { HOLD_AFTER_LOGIN } from "./components/AuthGate";
+import AuthGate from "./components/AuthGate";
 import CardGrid from "./components/CardGrid";
 
 // カスタムフックのインポート
@@ -20,14 +20,12 @@ export default function App() {
   }
 
   // ===== 認証ゲート =====
-  if (!user || HOLD_AFTER_LOGIN) {
+  if (!user) {
     return (
       <AuthGate
-        user={user}
         handleLogin={handleLogin}
         isAuthLoading={isAuthLoading}
         authError={authError}
-        handleLogout={handleLogout}
       />
     );
   }

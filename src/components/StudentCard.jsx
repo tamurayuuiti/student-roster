@@ -18,7 +18,7 @@ export default function StudentCard({ profile, jumpId }) {
         /* 背景・枠線：上で定義した --card-color を Tailwind でこねくり回す */
         /* 背景は 6% 透過、左線はそのままの色 */
         bg-(--card-color)/6
-        border-l-(length:--spacing-v-md) border-l-(--card-color) rounded-xl
+        border-l-8 border-l-(--card-color) rounded-xl
         
         /* 影・アニメーション */
         shadow-(--shadow-card) transition-all duration-200 
@@ -30,7 +30,7 @@ export default function StudentCard({ profile, jumpId }) {
       <div className="flex justify-between items-start mb-2">
         <span className={`
           inline-block rounded-full bg-white border border-border-soft font-bold leading-none text-text-main
-          px-label-x py-v-xs shadow-(--shadow-label) text-[0.72rem]
+          px-2.5 py-1 shadow-(--shadow-label) text-[0.72rem]
         `}>
           {profile.class}
         </span>

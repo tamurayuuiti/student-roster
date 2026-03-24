@@ -131,7 +131,7 @@ export default function CardGrid({ profiles }) {
 
         space-y-4 lg:space-y-0 lg:space-x-6
 
-        mb-(--spacing-v-xl)
+        mb-4
 
         bg-(--color-white)
         rounded-xl
@@ -295,9 +295,9 @@ export default function CardGrid({ profiles }) {
               key={className}
               type="button"
               className="
-                inline-flex items-center gap-(--spacing-v-md)
+                inline-flex items-center gap-2
 
-                py-btn-y px-btn-x
+                py-2 px-3.5
 
                 rounded-full
                 border border-border-light

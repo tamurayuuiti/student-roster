@@ -47,7 +47,7 @@ export default function Header({ user, handleLogout }) {
   };
 
   return (
-    <header className="bg-(--color-white) shadow-(--shadow-header) mb-(--spacing-v-xl) md:mb-6 p-0">
+    <header className="bg-(--color-white) shadow-(--shadow-header) mb-4 md:mb-6 p-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
@@ -58,7 +58,7 @@ export default function Header({ user, handleLogout }) {
             3学年名簿
           </a>
 
-          <div className="relative flex items-center gap-(--spacing-v-md) bg-transparent border-0 shadow-none p-0">
+          <div className="relative flex items-center gap-2 bg-transparent border-0 shadow-none p-0">
 
             {/* トグルボタン */}
             <div className="relative">
