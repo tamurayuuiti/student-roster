@@ -66,7 +66,7 @@ export default function AuthGate({ user, handleLogin, isAuthLoading, authError }
             className={`
               block mt-3 py-2 px-3
               bg-auth-danger-bg border border-auth-danger-border 
-              rounded-md text-danger text-[0.85rem] text-center wrap-break-word
+              rounded-lg text-danger text-[0.85rem] text-center wrap-break-word
             `}
           >
             {authError}

@@ -134,7 +134,7 @@ export default function CardGrid({ profiles }) {
         mb-4
 
         bg-(--color-white)
-        rounded-xl
+        rounded-2xl
         shadow-(--shadow-card)
         border border-border-light
       ">
@@ -151,7 +151,7 @@ export default function CardGrid({ profiles }) {
               p-2 pl-10
 
               border border-border-light
-              rounded-md
+              rounded-lg
               shadow-sm
 
               text-text-main
@@ -198,7 +198,7 @@ export default function CardGrid({ profiles }) {
                 p-2
 
                 border border-border-light
-                rounded-md
+                rounded-lg
                 shadow-sm
 
                 text-text-main
@@ -225,7 +225,7 @@ export default function CardGrid({ profiles }) {
               w-full sm:w-auto
 
               bg-primary text-(--color-white)
-              rounded-md
+              rounded-lg
               shadow-(--shadow-btn)
 
               cursor-pointer
@@ -278,7 +278,7 @@ export default function CardGrid({ profiles }) {
           gap-3 p-4
 
           bg-(--color-white)
-          rounded-xl
+          rounded-2xl
           shadow-(--shadow-card)
           border border-border-light
 
