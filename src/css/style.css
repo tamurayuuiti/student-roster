@@ -8,39 +8,6 @@ body {
 }
 
 /* ============================================================
-   ヘッダー
-   ============================================================ */
-#app-root > header {
-  background: var(--color-white);
-  box-shadow: var(--shadow-header);
-  margin: 0 0 var(--spacing-v-xl);
-  padding: 0;
-}
-@media (min-width: 768px) {
-  #app-root > header {
-    margin-bottom: 1.5rem;
-  }
-}
-
-/* ヘッダー内のリンク（タイトル）の下線を消す */
-#app-root > header a {
-  text-decoration: none;
-}
-
-/* ============================================================
-   ドロップダウン（開閉アニメーション用）
-   ============================================================ */
-.dropdown-menu {
-  transform-origin: top right;
-  transition: transform .2s ease-out, opacity .2s ease-out;
-}
-.hidden-menu {
-  transform: scale(.9);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ============================================================
    クラスジャンプボタン
    ============================================================ */
 .jump-btn {
@@ -66,52 +33,6 @@ body {
 [data-auth="loading"]  #app-root { display: none; }
 [data-auth="signedout"] #app-root { display: none; }
 [data-auth="signedin"]  #auth-gate { display: none; }
-
-/* ============================================================
-   ヘッダー右上のチップ（メール省略版）
-   ============================================================ */
-#auth-chip {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-v-md);
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  padding: 0;
-}
-
-.auth-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-label-x);
-  background: linear-gradient(180deg, #eef2ff 0%, var(--color-auth-dot-ring) 100%);
-  color: var(--color-auth-chip-text);
-  padding: var(--spacing-v-sm) var(--spacing-label-x);
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-ring-soft);
-  font-weight: 700;
-  font-size: .8rem;
-  box-shadow: var(--shadow-auth-chip);
-}
-
-.auth-chip .chip-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: var(--radius-full);
-  background: var(--color-auth-chip-dot);
-  box-shadow: 0 0 0 2px var(--color-auth-dot-ring);
-}
-
-.auth-chip button {
-  border: 1px solid var(--color-auth-btn-border);
-  background: var(--color-white);
-  border-radius: var(--radius-sm);
-  padding: var(--spacing-chip-y) var(--spacing-label-x);
-  font-weight: 700;
-}
-.auth-chip button:hover {
-  background: var(--color-auth-btn-hover);
-}
 
 /* ============================================================
    低モーション環境の配慮
