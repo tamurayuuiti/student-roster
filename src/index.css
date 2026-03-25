@@ -1,10 +1,7 @@
 @import "tailwindcss";
 
-/* =========================================
-   Colors (クラス別 固有)
-   ========================================= */
-:root {
-  /* 本体の色だけを定義（管理がここだけで完結！） */
+@theme {
+  /* クラス別カラーを Tailwind ユーティリティとして登録 */
   --color-group-1: #e0e0e0;
   --color-group-2: #222222;
   --color-group-3: #e53935;
@@ -13,18 +10,6 @@
   --color-group-6: #43a047;
   --color-group-7: #ff9800;
   --color-group-8: #f06292;
-}
-
-@theme {
-  /* クラス別カラーを Tailwind ユーティリティとして登録 */
-  --color-group-1: var(--color-group-1);
-  --color-group-2: var(--color-group-2);
-  --color-group-3: var(--color-group-3);
-  --color-group-4: var(--color-group-4);
-  --color-group-5: var(--color-group-5);
-  --color-group-6: var(--color-group-6);
-  --color-group-7: var(--color-group-7);
-  --color-group-8: var(--color-group-8);
 
   /* 1. 基本色 (全体で共通) */
   --color-white: #ffffff;

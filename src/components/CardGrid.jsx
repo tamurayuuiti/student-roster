@@ -4,17 +4,14 @@ import { useState, useRef, useMemo } from "react";
 import { normalizeText } from "../utils/normalize";
 import StudentCard from "./StudentCard";
 
-// クラス別の固有色定義
-const GROUP_THEMES = {
-  "1": { base: "var(--color-group-1)", text: "var(--color-text-main)" },
-  "2": { base: "var(--color-group-2)", text: "var(--color-white)" },
-  "3": { base: "var(--color-group-3)", text: "var(--color-white)" },
-  "4": { base: "var(--color-group-4)", text: "var(--color-white)" },
-  "5": { base: "var(--color-group-5)", text: "var(--color-text-main)" },
-  "6": { base: "var(--color-group-6)", text: "var(--color-white)" },
-  "7": { base: "var(--color-group-7)", text: "var(--color-white)" },
-  "8": { base: "var(--color-group-8)", text: "var(--color-white)" }
-};
+// テキストが黒系になるグループ（それ以外は白）
+const DARK_TEXT_GROUPS = [1, 5];
+export const getGroupTheme = (group) => ({
+  base: `var(--color-group-${group})`,
+  text: DARK_TEXT_GROUPS.includes(Number(group))
+    ? "var(--color-text-main)"
+    : "var(--color-white)"
+});
 
 const collator = new Intl.Collator("ja", { sensitivity: "base", numeric: true });
 
@@ -193,7 +190,7 @@ export default function CardGrid({ profiles }) {
       >
         {classNamesList.map((className) => {
           const classNumber = className.replace("組", "");
-          const colorInfo = GROUP_THEMES[classNumber] || { base: "#6B7280", text: "#ffffff" };
+          const colorInfo = getGroupTheme(classNumber);
 
           return (
             <button
