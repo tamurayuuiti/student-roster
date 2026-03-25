@@ -7,34 +7,25 @@ export default function AuthGate({ user, handleLogin, isAuthLoading, authError }
   if (user) return null;
 
   return (
-    <section
-      id="auth-gate"
+    <section 
+      id="auth-gate" 
       aria-live="polite"
-      style={{
-        "--auth-gradient": "radial-gradient(1200px 600px at 10% -10%, #eef2ff 0%, transparent 60%), radial-gradient(900px 500px at 110% 10%, #dbeafe 0%, transparent 55%), var(--color-auth-bg)"
-      }}
-      className={`
-        min-h-screen grid place-items-center p-5
-        bg-(--auth-gradient) font-(--font-sans)
-      `}
+      className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8"
     >
-      <div className={`
-        w-[min(420px,100%)] bg-auth-card rounded-2xl 
-        pt-4.5 px-4 pb-4 
-        shadow-md border border-auth-card-border backdrop-blur-[2px] 
-        transition-all duration-200 ease-in-out motion-reduce:transition-none
-        hover:shadow-xl hover:-translate-y-px
-      `}>
+      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-900/5 sm:p-10">
         
-        <h1 className="flex justify-center items-center gap-2 mb-1.5 text-[1.15rem] font-bold tracking-[0.01em] text-text-main">
-          ログイン
-        </h1>
-        
-        <p id="auth-subtitle" className="mb-3 text-auth-muted text-[0.86rem] text-center">
-          {DEFAULT_SUBTITLE}
-        </p>
+        {/* ヘッダー・タイポグラフィ領域 */}
+        <div className="text-center">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            ログイン
+          </h1>
+          <p id="auth-subtitle" className="mt-2 text-sm leading-6 text-gray-500">
+            {DEFAULT_SUBTITLE}
+          </p>
+        </div>
 
-        <div className="flex justify-center" id="auth-signedout">
+        {/* Googleボタン領域（構造・独自クラス完全維持） */}
+        <div className="mt-8 flex justify-center" id="auth-signedout">
           <button
             id="auth-login-popup"
             type="button"
@@ -44,11 +35,11 @@ export default function AuthGate({ user, handleLogin, isAuthLoading, authError }
             className={`
               gsi-material-button flex items-center justify-center space-x-2 
               border border-gray-300 rounded px-4 py-2 transition motion-reduce:transition-none
-              hover:bg-gray-50
+              hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed
             `}
           >
             <div className="gsi-material-button-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5 block">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="block h-5 w-5">
                 <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
                 <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
                 <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
@@ -56,18 +47,18 @@ export default function AuthGate({ user, handleLogin, isAuthLoading, authError }
                 <path fill="none" d="M0 0h48v48H0z" />
               </svg>
             </div>
-            <span className="gsi-material-button-contents font-medium text-gray-700">Sign in with Google</span>
+            <span className="gsi-material-button-contents font-medium text-gray-700">
+              Sign in with Google
+            </span>
           </button>
         </div>
 
+        {/* エラーメッセージ領域 */}
         {authError && (
           <div 
             id="auth-error" 
-            className={`
-              block mt-3 py-2 px-3
-              bg-auth-danger-bg border border-auth-danger-border 
-              rounded-lg text-danger text-[0.85rem] text-center wrap-break-word
-            `}
+            role="alert"
+            className="mt-6 rounded-md bg-red-50 p-4 text-center text-sm font-medium text-red-600 ring-1 ring-inset ring-red-500/10 wrap-break-word"
           >
             {authError}
           </div>

@@ -11,31 +11,18 @@
   --color-group-7: #ff9800;
   --color-group-8: #f06292;
 
-  /* 1. 基本色 (全体で共通) */
-  --color-white: #ffffff;
+  /* 基本色 (全体で共通) */
   --color-bg-main: #fcfcfc;
   --color-text-main: #0f172a;
   --color-text-sub: #475569;
+
+  /* ボーダー色 (全体で共通) */
   --color-border-soft: rgba(15, 23, 42, 0.06);
   --color-border-light: rgba(0, 0, 0, 0.04);
 
-  /* 2. 基礎となる色 (Auth 固有) */
-  --color-auth-bg: #f1f5f9;
-  --color-auth-muted: #64748b;
-  --color-auth-ok: #16a34a;
-  --color-auth-danger: #b91c1c;
-  --color-auth-danger-bg: #fff1f2;
-  --color-auth-danger-border: #fecdd3;
-  --color-auth-card-border: rgba(99, 102, 241, 0.15);
-
-  /* 3. プライマリーカラー (コントロールパネル等のアクセント) */
+  /* アクセントカラー (コントロールパネル等のアクセント) */
   --color-accent: #4f46e5;
   --color-accent-ring: #a5b4fc;
-
-  /* 4. エイリアス (使いやすくするための別名) */
-  --color-ok: var(--color-auth-ok);
-  --color-danger: var(--color-auth-danger);
-  --color-auth-card: var(--color-white);
 
   /* フォントファミリー */
   --font-sans: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
