@@ -24,23 +24,20 @@ export default function StudentCard({ profile, jumpId }) {
         motion-reduce:transition-none
       `}
     >
-      <div className="flex justify-between items-start mb-2">
-        <span className={`
-          inline-block rounded-full bg-white border border-border-soft font-bold leading-none text-text-main
-          px-2.5 py-1 shadow-sm text-[0.72rem]
-        `}>
+      <div className="flex items-start justify-between mb-2">
+        <span className="inline-block rounded-full bg-white border border-slate-900/5 px-2.5 py-1 text-[0.72rem] font-bold leading-none text-slate-900 shadow-sm">
           {profile.class}
         </span>
-        <span className="text-lg font-mono font-bold text-text-sub opacity-80">
+        <span className="font-mono text-lg font-bold text-slate-600">
           {paddedNumber}
         </span>
       </div>
 
       <div>
-        <h2 className="text-xl font-extrabold leading-tight text-text-main">
+        <h2 className="text-xl font-extrabold leading-tight text-slate-900">
           {profile.name}
         </h2>
-        <p className="text-sm mt-0.5 italic text-text-sub">
+        <p className="text-sm mt-0.5 italic text-slate-600">
           {profile.reading}
         </p>
       </div>

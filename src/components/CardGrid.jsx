@@ -6,11 +6,12 @@ import StudentCard from "./StudentCard";
 
 // テキストが黒系になるグループ（それ以外は白）
 const DARK_TEXT_GROUPS = [1, 5];
+
 export const getGroupTheme = (group) => ({
   base: `var(--color-group-${group})`,
   text: DARK_TEXT_GROUPS.includes(Number(group))
-    ? "var(--color-text-main)"
-    : "var(--color-white)"
+    ? "var(--color-slate-900)"
+    : "#fff"
 });
 
 const collator = new Intl.Collator("ja", { sensitivity: "base", numeric: true });
@@ -119,7 +120,7 @@ export default function CardGrid({ profiles }) {
   return (
     <>
       {/* コントロール */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center max-w-7xl mx-auto p-4 space-y-4 lg:space-y-0 lg:space-x-6 mb-4 bg-(--color-white) rounded-2xl shadow-md border border-border-light">
+      <div className="mx-auto mb-4 flex max-w-7xl flex-col items-start justify-between space-y-4 rounded-2xl border border-slate-900/5 bg-white p-4 shadow-md transition-shadow hover:shadow-lg lg:flex-row lg:items-center lg:space-x-6 lg:space-y-0">
         <div className="w-full lg:w-1/3 relative">
           <input
             type="text"
@@ -127,10 +128,10 @@ export default function CardGrid({ profiles }) {
             value={inputValue}
             onChange={handleSearchInput}
             placeholder="名前、番号、クラスで検索"
-            className="w-full py-2 px-4 pl-10 rounded-lg bg-white border border-slate-400 shadow-sm text-text-main focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
+            className="w-full py-2 px-4 pl-10 rounded-lg bg-white border border-slate-400 shadow-sm text-slate-900 focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
           />
           <svg
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-text-sub"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -142,14 +143,14 @@ export default function CardGrid({ profiles }) {
 
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full lg:w-auto justify-end">
           <div className="flex items-center space-x-3 w-full sm:w-auto">
-            <label htmlFor="sort-criteria" className="text-sm font-medium text-text-main whitespace-nowrap">
+            <label htmlFor="sort-criteria" className="text-sm font-medium text-slate-900 whitespace-nowrap">
               ソート基準:
             </label>
             <select
               id="sort-criteria"
               value={sortCriteria}
               onChange={(e) => setSortCriteria(e.target.value)}
-              className="grow p-2 rounded-lg bg-white border border-slate-300 text-text-main focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
+              className="grow p-2 rounded-lg bg-white border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
             >
               <option value="class">クラス（番号順）</option>
               <option value="reading">氏名（ふりがな順）</option>
@@ -159,7 +160,7 @@ export default function CardGrid({ profiles }) {
           <button
             id="sort-direction-toggle"
             onClick={() => setIsAscending(!isAscending)}
-            className="flex items-center justify-center py-2.5 px-3 w-full sm:w-auto rounded-lg gap-0.5 bg-white border border-slate-300 text-text-main hover:bg-slate-50 hover:border-slate-400 focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
+            className="flex items-center justify-center py-2.5 px-3 w-full sm:w-auto rounded-lg gap-0.5 bg-white border border-slate-300 text-slate-900 hover:bg-slate-50 hover:border-slate-400 focus:outline-none focus:ring-2 focus:border-accent focus:ring-accent-ring transition duration-150"
           >
             <svg
               id="sort-icon"
@@ -176,7 +177,7 @@ export default function CardGrid({ profiles }) {
             >
               <path d="m18 15-6-6-6 6" />
             </svg>
-            <span id="sort-label" className="text-base font-medium text-text-main">
+            <span id="sort-label" className="text-base font-medium text-slate-900">
               {isAscending ? "昇順" : "降順"}
             </span>
           </button>
@@ -186,7 +187,9 @@ export default function CardGrid({ profiles }) {
       {/* ジャンプボタン */}
       <div
         id="jump-button-container"
-        className={`mb-6 flex flex-wrap justify-center gap-3 p-4 bg-(--color-white) rounded-2xl shadow border border-border-light ${shouldShowJumpButtons ? "" : "hidden"}`}
+        className={`mb-6 flex flex-wrap justify-center gap-3 p-4 bg-white rounded-2xl shadow-sm border border-slate-900/5 ${
+          shouldShowJumpButtons ? "" : "hidden"
+        }`}
       >
         {classNamesList.map((className) => {
           const classNumber = className.replace("組", "");
@@ -196,10 +199,10 @@ export default function CardGrid({ profiles }) {
             <button
               key={className}
               type="button"
-              className="inline-flex items-center gap-2 py-2 px-3.5 rounded-full border border-border-light shadow-sm font-bold text-[0.9rem] text-(--btn-text) bg-(--btn-bg) cursor-pointer transition-all duration-150 ease-out hover:-translate-y-0.5 hover:opacity-95 motion-reduce:transition-none motion-reduce:transform-none"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/5 px-3.5 py-2 text-[0.9rem] font-bold shadow-sm transition-all duration-150 ease-out hover:-translate-y-0.5 hover:opacity-95 motion-reduce:transform-none motion-reduce:transition-none"
               style={{
-                "--btn-bg": colorInfo.base,
-                "--btn-text": colorInfo.text
+                backgroundColor: colorInfo.base,
+                color: colorInfo.text
               }}
               aria-label={`${className} へジャンプ`}
               onClick={() => handleJump(classNumber)}
@@ -211,9 +214,9 @@ export default function CardGrid({ profiles }) {
       </div>
 
       {/* 件数 */}
-      <div className="flex justify-end mb-2 text-sm text-text-sub font-medium">
+      <div className="flex justify-end mb-2 text-sm text-slate-500 font-medium">
         表示件数:
-        <span id="member-count" className="mx-1 text-text-main">
+        <span id="member-count" className="mx-1 text-slate-900">
           {sortedAndFilteredProfiles.length}
         </span>
         /

@@ -49,7 +49,7 @@ export default function Header({ user, handleLogout }) {
   };
 
   return (
-    <header className="bg-(--color-white) shadow-sm mb-4 md:mb-6 p-0">
+    <header className="bg-white shadow-sm mb-4 md:mb-6 p-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <a
@@ -95,7 +95,7 @@ export default function Header({ user, handleLogout }) {
               aria-labelledby="menu-toggle"
               className={`
                 absolute right-0 top-full mt-2 w-64
-                bg-(--color-white) border border-gray-200
+                bg-white border border-gray-200
                 rounded-xl shadow-xl z-30 origin-top-right
                 transition-all duration-200 ease-out motion-reduce:transition-none
                 ${

@@ -8,15 +8,11 @@ import CardGrid from "./components/CardGrid";
 // カスタムフックのインポート
 import { useRoster } from "./hooks/useRoster";
 
+// アプリのメインコンポーネント
 export default function App() {
-  // カスタムフックから必要な状態と関数を取得
   const { user, profiles, authError, isAuthLoading, handleLogin, handleLogout } = useRoster();
-
-  // ------------------------------------------------------------
-  // UI レンダー
-  // ------------------------------------------------------------
   if (user === undefined) {
-    return null; // 初期ローディング
+    return null;
   }
 
   // ===== 認証ゲート =====
@@ -32,7 +28,7 @@ export default function App() {
 
   // ===== アプリ本体 =====
   return (
-    <div id="app-root" className="bg-bg-main min-h-screen">
+    <div id="app-root" className="bg-slate-50 min-h-screen">
       <Header user={user} handleLogout={handleLogout} />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <CardGrid profiles={profiles} />

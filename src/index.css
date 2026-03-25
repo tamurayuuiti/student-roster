@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-@theme {
-  /* クラス別カラーを Tailwind ユーティリティとして登録 */
+:root {
+  /* クラス別カラー */
   --color-group-1: #e0e0e0;
   --color-group-2: #222222;
   --color-group-3: #e53935;
@@ -10,15 +10,9 @@
   --color-group-6: #43a047;
   --color-group-7: #ff9800;
   --color-group-8: #f06292;
+}
 
-  /* 基本色 (全体で共通) */
-  --color-bg-main: #fcfcfc;
-  --color-text-main: #0f172a;
-  --color-text-sub: #475569;
-
-  /* ボーダー色 (全体で共通) */
-  --color-border-soft: rgba(15, 23, 42, 0.06);
-  --color-border-light: rgba(0, 0, 0, 0.04);
+@theme {
 
   /* アクセントカラー (コントロールパネル等のアクセント) */
   --color-accent: #4f46e5;
