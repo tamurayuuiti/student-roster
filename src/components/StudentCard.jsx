@@ -7,18 +7,14 @@ export default function StudentCard({ profile, jumpId }) {
   return (
     <div
       id={jumpId}
-      /* 1. ここで「このカードの基本色」を CSS 変数として定義する */
+      /* カードの基本色を CSS 変数として定義 */
       style={{
         "--card-color": `var(--color-group-${classNumber})`
       }}
       className={`
-        /* レイアウト */
         flex flex-col justify-between p-4 snap-start max-sm:min-h-30
-        
         bg-(--card-color)/6
         border-l-8 border-l-(--card-color) rounded-xl
-        
-        /* 影・アニメーション */
         shadow-sm transition-all duration-200 
         hover:-translate-y-0.5 hover:shadow-lg
         motion-reduce:transition-none

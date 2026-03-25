@@ -33,12 +33,12 @@ student-roster/
 │   │   └── firebase.js     # Firebase 初期化・接続設定
 │   ├── utils/              # 共通ユーティリティ
 │   │   └── normalize.js    # 文字列正規化処理（検索用）
-│   └── index.css           # Tailwind エントリ / 全体のスタイル統合
+│   └── index.css           # Tailwindエントリ / テーマ定義 / グローバルスタイル
 ├── docs/                   # ビルド成果物（GitHub Pages 公開用）
 │   ├── index.html          # 公開用エントリポイント
 │   └── assets/             # 最適化済みの JS / CSS
 ├── vite.config.js          # Vite 設定（outDir: "docs" 等）
-└── package.json            # プロジェクト設定・依存関係管理
+├── package.json            # プロジェクト設定・依存関係管理
 └── README.md
 ````
 
