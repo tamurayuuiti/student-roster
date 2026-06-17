@@ -1,5 +1,7 @@
 // src/components/CardGrid.jsx
 
+// TODO: v2に向けて、JumpNavigationとCardControlsを分離する予定
+
 import { useState, useRef, useMemo } from "react";
 import { normalizeText } from "../utils/normalize";
 import StudentCard from "./StudentCard";
